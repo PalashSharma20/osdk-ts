@@ -4,7 +4,8 @@ export type LensMode =
   | "network"
   | "chain"
   | "team"
-  | "reorg";
+  | "reorg"
+  | "cbac";
 
 export interface LensColors {
   bg: string;
@@ -43,6 +44,11 @@ const LENS_COLORS: Record<LensMode, LensColors> = {
     border: "border-[var(--accent-amber)]",
     text: "text-[var(--accent-amber)]",
   },
+  cbac: {
+    bg: "bg-[var(--accent-violet)]",
+    border: "border-[var(--accent-violet)]",
+    text: "text-[var(--accent-violet)]",
+  },
 };
 
 const LENS_TITLES: Record<LensMode, string> = {
@@ -52,6 +58,7 @@ const LENS_TITLES: Record<LensMode, string> = {
   chain: "Reporting Chain",
   team: "Team Member",
   reorg: "Reorg",
+  cbac: "Classification",
 };
 
 export function getLensColors(mode: LensMode): LensColors {
@@ -69,6 +76,7 @@ export const LENS_ACCENT: Record<LensMode, string> = {
   chain: "var(--officenetwork-status-warning)",
   team: "var(--officenetwork-hier-evp)",
   reorg: "var(--officenetwork-status-error)",
+  cbac: "var(--officenetwork-hier-evp)",
 };
 
 export const LENS_PANEL_TITLE: Record<LensMode, string> = {
@@ -78,4 +86,5 @@ export const LENS_PANEL_TITLE: Record<LensMode, string> = {
   chain: "Reporting Chain",
   team: "Team Member",
   reorg: "Reorg Target",
+  cbac: "Classification",
 };

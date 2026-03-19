@@ -1,7 +1,9 @@
 import type { DerivedProperty, WhereClause } from "@osdk/api";
+import { CbacBannerPopover } from "@osdk/react-components/experimental";
 import { useOsdkObjects } from "@osdk/react/experimental";
 import React from "react";
 import { AggregationStatsPanel } from "./components/AggregationStatsPanel.js";
+import { CbacPanel } from "./components/CbacPanel.js";
 import { EmployeeFilters } from "./components/EmployeeFilters.js";
 import { EmployeePanel } from "./components/EmployeePanel.js";
 import { OfficeMap } from "./components/OfficeMap.js";
@@ -12,6 +14,9 @@ import { TopBar } from "./components/TopBar.js";
 import { Employee, Office } from "./generatedNoCheck2/index.js";
 import { getHierarchyLevel, type HierarchyLevel } from "./utils/hierarchy.js";
 import type { LensMode } from "./utils/lensTheme.js";
+
+const EMPTY_MARKING_IDS: string[] = [];
+const BANNER_STYLE: React.CSSProperties = { borderRadius: 0 };
 
 const officeWithRdps = {
   employeeCount: (base: DerivedProperty.Builder<Office, false>) =>
@@ -96,6 +101,9 @@ function App() {
   const [employeeWhereClause, setEmployeeWhereClause] = React.useState<
     WhereClause<typeof Employee> | undefined
   >();
+  const [cbacMarkingIds, setCbacMarkingIds] = React.useState<string[]>(
+    EMPTY_MARKING_IDS,
+  );
 
   const { data: offices, isLoading: officesLoading, error: officesError } =
     useOsdkObjects(Office, {
@@ -212,8 +220,17 @@ function App() {
     && lensMode === "offices";
   const showEmployeePanel = selectedEmployee;
   const showReorgWizard = lensMode === "reorg";
+  const showCbacPanel = lensMode === "cbac";
+
   return (
     <div className="h-dvh flex flex-col bg-[var(--officenetwork-bg-base)]">
+      {/* CBAC Banner */}
+      <CbacBannerPopover
+        markingIds={cbacMarkingIds}
+        onChange={setCbacMarkingIds}
+        style={BANNER_STYLE}
+      />
+
       {/* Top Bar */}
       <TopBar
         lensMode={lensMode}
@@ -245,7 +262,7 @@ function App() {
                 lensMode={lensMode}
                 filteredLevel={filteredLevel}
                 onFilterLevelChange={handleFilterLevelChange}
-                freezeMap={lensMode === "reorg"}
+                freezeMap={lensMode === "reorg" || lensMode === "cbac"}
                 hasActiveFilters={hasActiveFilters}
               />
             )
@@ -337,6 +354,16 @@ function App() {
               employees={employees}
               offices={offices}
               onClose={() => handleLensModeChange("offices")}
+            />
+          </div>
+        )}
+
+        {showCbacPanel && (
+          <div className="w-[480px] shrink-0 h-full border-l border-[var(--officenetwork-border-default)]">
+            <CbacPanel
+              onClose={() => handleLensModeChange("offices")}
+              markingIds={cbacMarkingIds}
+              onMarkingIdsChange={setCbacMarkingIds}
             />
           </div>
         )}

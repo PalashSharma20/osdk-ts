@@ -18,7 +18,14 @@ export const auth = createPublicOauthClient(
   import.meta.env.VITE_FOUNDRY_CLIENT_ID,
   import.meta.env.VITE_FOUNDRY_URL,
   import.meta.env.VITE_FOUNDRY_REDIRECT_URL,
-  { useHistory: true },
+  {
+    useHistory: true,
+    scopes: [
+      "api:use-ontologies-read",
+      "api:use-ontologies-write",
+      "api:use-admin-read",
+    ],
+  },
 );
 
 export const $ = createClient(

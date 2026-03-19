@@ -26,6 +26,7 @@ const lenses: TabConfig[] = [
 
 const workflows: TabConfig[] = [
   { id: "reorg", label: "Reorg", shortcut: "6" },
+  { id: "cbac", label: "CBAC", shortcut: "7" },
 ];
 
 function TabButton({

@@ -18,6 +18,7 @@ const LENS_LABELS: Record<LensMode, string> = {
   chain: "Reporting Chain",
   team: "Team Structure",
   reorg: "Reorganization Mode",
+  cbac: "Classification Mode",
 };
 
 export function StatusBar({
