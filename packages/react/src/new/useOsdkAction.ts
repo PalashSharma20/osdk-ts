@@ -74,12 +74,14 @@ export function useOsdkAction<Q extends ActionDefinition<any>>(
   const { observableClient } = React.useContext(OsdkContext2);
 
   const __devtoolsMetadata = React.useRef<OsdkActionMetadata | null>(null);
-  if (__devtoolsMetadata.current == null) {
-    __devtoolsMetadata.current = {
-      [OSDK_HOOK_METADATA]: true,
-      hookType: "useOsdkAction",
-      actionName: actionDef.apiName,
-    };
+  if (process.env.NODE_ENV !== "production") {
+    if (__devtoolsMetadata.current == null) {
+      __devtoolsMetadata.current = {
+        [OSDK_HOOK_METADATA]: true,
+        hookType: "useOsdkAction",
+        actionName: actionDef.apiName,
+      };
+    }
   }
 
   const [error, setError] = React.useState<UseOsdkActionResult<Q>["error"]>();
@@ -92,7 +94,9 @@ export function useOsdkAction<Q extends ActionDefinition<any>>(
   const abortControllerRef = React.useRef<AbortController | null>(null);
 
   React.useEffect(() => {
-    observableClient.registerActionHook?.(actionDef);
+    if (process.env.NODE_ENV !== "production") {
+      observableClient.registerActionHook?.(actionDef);
+    }
   }, [observableClient, actionDef]);
 
   const applyAction = React.useCallback(async function applyAction(

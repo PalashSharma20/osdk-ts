@@ -149,17 +149,21 @@ export function useOsdkObject<
     : typeOrApiName.apiName;
 
   const __devtoolsMetadata = React.useRef<OsdkObjectMetadata | null>(null);
-  if (__devtoolsMetadata.current == null) {
-    __devtoolsMetadata.current = {
-      [OSDK_HOOK_METADATA]: true,
-      hookType: "useOsdkObject",
-      objectType: apiNameString,
-      primaryKey: String(primaryKey),
-    };
+  if (process.env.NODE_ENV !== "production") {
+    if (__devtoolsMetadata.current == null) {
+      __devtoolsMetadata.current = {
+        [OSDK_HOOK_METADATA]: true,
+        hookType: "useOsdkObject",
+        objectType: apiNameString,
+        primaryKey: String(primaryKey),
+      };
+    }
   }
 
   React.useEffect(() => {
-    observableClient.registerObjectHook?.(apiNameString, primaryKey);
+    if (process.env.NODE_ENV !== "production") {
+      observableClient.registerObjectHook?.(apiNameString, primaryKey);
+    }
   }, [observableClient, apiNameString, primaryKey]);
 
   const stableSelect = React.useMemo(

@@ -181,21 +181,25 @@ export function useLinks<
   }, [objectsKey, objects]);
 
   const __devtoolsMetadata = React.useRef<OsdkLinksMetadata | null>(null);
-  if (__devtoolsMetadata.current == null && objectsArray.length > 0) {
-    __devtoolsMetadata.current = {
-      [OSDK_HOOK_METADATA]: true,
-      hookType: "useLinks",
-      sourceObjectType: objectsArray[0].$objectType,
-      linkName: linkName as string,
-    };
+  if (process.env.NODE_ENV !== "production") {
+    if (__devtoolsMetadata.current == null && objectsArray.length > 0) {
+      __devtoolsMetadata.current = {
+        [OSDK_HOOK_METADATA]: true,
+        hookType: "useLinks",
+        sourceObjectType: objectsArray[0].$objectType,
+        linkName: linkName as string,
+      };
+    }
   }
 
   React.useEffect(() => {
-    if (objectsArray.length > 0) {
-      observableClient.registerLinkHook?.(
-        [...objectsArray] as Osdk.Instance<ObjectTypeDefinition>[],
-        linkName,
-      );
+    if (process.env.NODE_ENV !== "production") {
+      if (objectsArray.length > 0) {
+        observableClient.registerLinkHook?.(
+          [...objectsArray] as Osdk.Instance<ObjectTypeDefinition>[],
+          linkName,
+        );
+      }
     }
   }, [observableClient, objectsArray, linkName]);
 
