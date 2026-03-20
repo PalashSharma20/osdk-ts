@@ -167,7 +167,7 @@ export abstract class Query<
     // if we are pending the first page/object we can just ignore this
     if (this.pendingFetch) {
       if (process.env.NODE_ENV !== "production") {
-        logger?.debug("Fetch is already pending, using it");
+        logger?.trace("Fetch is already pending, using it");
       }
       await this.pendingFetch;
       return;
@@ -182,7 +182,7 @@ export abstract class Query<
         )
       ) {
         if (process.env.NODE_ENV !== "production") {
-          logger?.debug("Within dupeInterval, aborting revalidate");
+          logger?.trace("Within dupeInterval, aborting revalidate");
         }
 
         return Promise.resolve();
@@ -190,7 +190,7 @@ export abstract class Query<
     }
 
     if (process.env.NODE_ENV !== "production") {
-      logger?.debug("Starting actual revalidate");
+      logger?.trace("Starting actual revalidate");
     }
 
     this.store.batch({}, (batch) => {
@@ -206,11 +206,11 @@ export abstract class Query<
     this.lastFetchStarted = Date.now();
 
     if (process.env.NODE_ENV !== "production") {
-      logger?.debug("calling _fetchAndStore()");
+      logger?.trace("calling _fetchAndStore()");
     }
     this.pendingFetch = this._fetchAndStore()
       .finally(() => {
-        logger?.debug("promise's finally for _fetchAndStore()");
+        logger?.trace("promise's finally for _fetchAndStore()");
         this.pendingFetch = undefined;
       });
 
@@ -234,14 +234,14 @@ export abstract class Query<
     batch: BatchContext,
   ): void {
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "setStatus" }).debug(
+      this.logger?.child({ methodName: "setStatus" }).trace(
         `Attempting to set status to '${status}'`,
       );
     }
     const existing = batch.read(this.cacheKey);
     if (existing?.status === status) {
       if (process.env.NODE_ENV !== "production") {
-        this.logger?.child({ methodName: "setStatus" }).debug(
+        this.logger?.child({ methodName: "setStatus" }).trace(
           `Status is already set to '${status}'; aborting`,
         );
       }
@@ -249,7 +249,7 @@ export abstract class Query<
     }
 
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "setStatus" }).debug(
+      this.logger?.child({ methodName: "setStatus" }).trace(
         `Writing status '${status}' to cache`,
       );
     }

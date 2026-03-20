@@ -28,9 +28,11 @@ import type { ObserveAggregationArgs } from "@osdk/client/unstable-do-not-use";
 import { computeObjectSetCacheKey } from "@osdk/client/unstable-do-not-use";
 import React from "react";
 import {
-  makeExternalStore,
-  makeExternalStoreAsync,
-} from "./makeExternalStore.js";
+  getDevToolsOverrideStore,
+  OSDK_HOOK_METADATA,
+  type OsdkAggregationMetadata,
+} from "./devtools-metadata.js";
+import { makeExternalStoreAsync } from "./makeExternalStore.js";
 import { OsdkContext2 } from "./OsdkContext2.js";
 
 interface UseOsdkAggregationBaseOptions<
@@ -205,11 +207,67 @@ export function useOsdkAggregation<
     [JSON.stringify(intersectWith)],
   );
 
+  const __devtoolsMetadata = React.useRef<OsdkAggregationMetadata | null>(null);
+  if (
+    process.env.NODE_ENV !== "production" && __devtoolsMetadata.current == null
+  ) {
+    __devtoolsMetadata.current = {
+      [OSDK_HOOK_METADATA]: true,
+      hookType: "useOsdkAggregation",
+      objectType: type.apiName,
+      where: canonWhere,
+      aggregate: stableAggregate,
+    };
+  }
+
+  const overrideStore = getDevToolsOverrideStore();
+
+  const querySignature = React.useMemo(() => {
+    if (process.env.NODE_ENV !== "production") {
+      return `useOsdkAggregation:${type.apiName}:${
+        JSON.stringify(canonWhere)
+      }:${JSON.stringify(stableAggregate ?? {})}`;
+    }
+    return undefined;
+  }, [type.apiName, canonWhere, stableAggregate]);
+
+  const override = React.useSyncExternalStore(
+    React.useCallback(
+      (notify: () => void) => overrideStore?.subscribe(notify) ?? (() => {}),
+      [overrideStore],
+    ),
+    React.useCallback(
+      () => overrideStore?.getOverrideBySignature(querySignature ?? ""),
+      [overrideStore, querySignature],
+    ),
+    () => undefined,
+  );
+
+  const effectiveAggregate = React.useMemo(() => {
+    if (!override?.enabled) {
+      return stableAggregate;
+    }
+    try {
+      return {
+        ...stableAggregate,
+        ...(override.overrideParams.groupBy !== undefined
+          ? { groupBy: override.overrideParams.groupBy }
+          : {}),
+        ...(override.overrideParams.select !== undefined
+          ? { select: override.overrideParams.select }
+          : {}),
+      } as typeof stableAggregate;
+    } catch {
+      return stableAggregate;
+    }
+  }, [override, stableAggregate]);
+
   const { subscribe, getSnapShot } = React.useMemo(
     () => {
       if (objectSetKeyString && objectSetRef.current) {
         return makeExternalStoreAsync<ObserveAggregationArgs<Q, A>>(
           (observer) =>
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             observableClient.observeAggregation(
               {
                 type: type,
@@ -217,8 +275,9 @@ export function useOsdkAggregation<
                 where: stableCanonWhere,
                 withProperties: stableWithProperties,
                 intersectWith: stableIntersectWith,
-                aggregate: stableAggregate,
+                aggregate: effectiveAggregate,
                 dedupeInterval: dedupeIntervalMs ?? 2_000,
+                __devtoolsSignature: querySignature,
               },
               observer,
             ),
@@ -229,19 +288,23 @@ export function useOsdkAggregation<
             : void 0,
         );
       }
-      return makeExternalStore<ObserveAggregationArgs<Q, A>>(
+      return makeExternalStoreAsync<ObserveAggregationArgs<Q, A>>(
         (observer) =>
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          observableClient.observeAggregation(
-            {
-              type: type,
-              where: stableCanonWhere,
-              withProperties: stableWithProperties,
-              intersectWith: stableIntersectWith,
-              aggregate: stableAggregate,
-              dedupeInterval: dedupeIntervalMs ?? 2_000,
-            },
-            observer,
+          Promise.resolve(
+            // Intentional use of deprecated sync overload for backwards compat (no objectSet)
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            observableClient.observeAggregation(
+              {
+                type: type,
+                where: stableCanonWhere,
+                withProperties: stableWithProperties,
+                intersectWith: stableIntersectWith,
+                aggregate: effectiveAggregate,
+                dedupeInterval: dedupeIntervalMs ?? 2_000,
+                __devtoolsSignature: querySignature,
+              },
+              observer,
+            ),
           ),
         process.env.NODE_ENV !== "production"
           ? `aggregation ${type.apiName} ${JSON.stringify(stableCanonWhere)}`
@@ -256,8 +319,9 @@ export function useOsdkAggregation<
       stableCanonWhere,
       stableWithProperties,
       stableIntersectWith,
-      stableAggregate,
+      effectiveAggregate,
       dedupeIntervalMs,
+      querySignature,
     ],
   );
 

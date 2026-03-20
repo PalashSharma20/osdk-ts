@@ -257,7 +257,7 @@ export class SpecificLinkQuery extends BaseListQuery<
 
     if (entry && deepEqual(tombstone, entry.value)) {
       if (process.env.NODE_ENV !== "production") {
-        this.logger?.child({ methodName: "deleteFromStore" }).debug(
+        this.logger?.child({ methodName: "deleteFromStore" }).trace(
           `Links were already deleted, just setting status`,
         );
       }
@@ -265,7 +265,7 @@ export class SpecificLinkQuery extends BaseListQuery<
     }
 
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "deleteFromStore" }).debug(
+      this.logger?.child({ methodName: "deleteFromStore" }).trace(
         JSON.stringify({ status }),
       );
     }

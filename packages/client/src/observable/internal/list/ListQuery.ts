@@ -344,10 +344,10 @@ export abstract class ListQuery extends BaseListQuery<
     optimisticId: OptimisticId | undefined,
   ): Promise<void> | undefined => {
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "maybeUpdateAndRevalidate" }).debug(
+      this.logger?.child({ methodName: "maybeUpdateAndRevalidate" }).trace(
         DEBUG_ONLY__changesToString(changes),
       );
-      this.logger?.child({ methodName: "maybeUpdateAndRevalidate" }).debug(
+      this.logger?.child({ methodName: "maybeUpdateAndRevalidate" }).trace(
         `Already in changes? ${changes.modified.has(this.cacheKey)}`,
       );
     }
@@ -442,7 +442,7 @@ export abstract class ListQuery extends BaseListQuery<
     } finally {
       if (process.env.NODE_ENV !== "production") {
         this.logger?.child({ methodName: "maybeUpdateAndRevalidate" })
-          .debug("in finally");
+          .trace("in finally");
       }
     }
   };
@@ -496,7 +496,7 @@ export abstract class ListQuery extends BaseListQuery<
       : this.logger;
 
     if (process.env.NODE_ENV !== "production") {
-      logger?.child({ methodName: "onChange" }).debug(
+      logger?.child({ methodName: "onChange" }).trace(
         `Got an update of type: ${state}`,
         objOrIface,
       );

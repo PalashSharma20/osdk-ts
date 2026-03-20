@@ -145,7 +145,7 @@ export abstract class BaseListQuery<
     if (process.env.NODE_ENV !== "production") {
       this.logger
         ?.child({ methodName: "updateList" })
-        .debug(
+        .trace(
           `{status: ${status}, mode: ${JSON.stringify(mode)}}`,
           JSON.stringify(items, null, 2),
         );
@@ -199,7 +199,7 @@ export abstract class BaseListQuery<
       // Check if both data AND status are the same
       if (entry.status === status) {
         if (process.env.NODE_ENV !== "production") {
-          this.logger?.child({ methodName: "writeToStore" }).debug(
+          this.logger?.child({ methodName: "writeToStore" }).trace(
             `Collection data was deep equal and status unchanged (${status}), skipping update`,
           );
         }
@@ -208,7 +208,7 @@ export abstract class BaseListQuery<
       }
 
       if (process.env.NODE_ENV !== "production") {
-        this.logger?.child({ methodName: "writeToStore" }).debug(
+        this.logger?.child({ methodName: "writeToStore" }).trace(
           `Collection data was deep equal, just updating status from ${entry.status} to ${status}`,
         );
       }
@@ -217,7 +217,7 @@ export abstract class BaseListQuery<
     }
 
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "writeToStore" }).debug(
+      this.logger?.child({ methodName: "writeToStore" }).trace(
         `{status: ${status}},`,
         DEBUG_ONLY__cacheKeysToString(data.data),
       );
@@ -435,7 +435,7 @@ export abstract class BaseListQuery<
    */
   protected async _fetchAndStore(): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "_fetchAndStore" }).debug(
+      this.logger?.child({ methodName: "_fetchAndStore" }).trace(
         "fetching pages",
       );
     }
@@ -471,7 +471,7 @@ export abstract class BaseListQuery<
     signal: AbortSignal | undefined,
   ): Promise<Entry<KEY> | undefined> {
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "fetchPageAndUpdate" }).debug(
+      this.logger?.child({ methodName: "fetchPageAndUpdate" }).trace(
         `Fetching data with status: ${status}`,
       );
     }
@@ -616,7 +616,7 @@ export abstract class BaseListQuery<
         ? this.logger?.child({ methodName: "updateCollection" })
         : this.logger;
 
-      logger?.debug(
+      logger?.trace(
         `{status: ${options.status}, append: ${options.append}}`,
         JSON.stringify(items, null, 2),
       );
@@ -715,7 +715,7 @@ export abstract class BaseListQuery<
    */
   protected onOswSuccessfulSubscription(): void {
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "onSuccessfulSubscription" }).debug("");
+      this.logger?.child({ methodName: "onSuccessfulSubscription" }).trace("");
     }
   }
 
@@ -724,7 +724,7 @@ export abstract class BaseListQuery<
    */
   protected onOswOutOfDate(): void {
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "onOutOfDate" }).debug("");
+      this.logger?.child({ methodName: "onOutOfDate" }).trace("");
     }
   }
 
@@ -757,7 +757,7 @@ export abstract class BaseListQuery<
       : this.logger;
 
     if (process.env.NODE_ENV !== "production") {
-      logger?.child({ methodName: "onChange" }).debug(
+      logger?.child({ methodName: "onChange" }).trace(
         `Got an update of type: ${state}`,
         object,
       );
@@ -787,7 +787,7 @@ export abstract class BaseListQuery<
     object: Osdk.Instance<ObjectTypeDefinition, never, string, {}>,
   ): void {
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "onRemoved" }).debug(
+      this.logger?.child({ methodName: "onRemoved" }).trace(
         "Removing object",
         object,
       );

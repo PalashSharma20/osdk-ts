@@ -113,7 +113,7 @@ export class ObjectQuery extends Query<
 
   async _fetchAndStore(): Promise<void> {
     if (process.env.NODE_ENV !== "production") {
-      this.logger?.child({ methodName: "_fetchAndStore" }).debug(
+      this.logger?.child({ methodName: "_fetchAndStore" }).trace(
         "calling _fetchAndStore",
       );
     }

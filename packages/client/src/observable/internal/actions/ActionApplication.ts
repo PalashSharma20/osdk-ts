@@ -52,7 +52,7 @@ export class ActionApplication {
       try {
         if (Array.isArray(args)) {
           if (process.env.NODE_ENV !== "production") {
-            logger?.debug("applying action to multiple args", args);
+            logger?.trace("applying action to multiple args", args);
           }
 
           const results: ActionReturnTypeForOptions<{ $returnEdits: true }> =
@@ -77,18 +77,18 @@ export class ActionApplication {
 
         if (process.env.NODE_ENV !== "production") {
           if (ACTION_DELAY > 0) {
-            logger?.debug("action done, pausing", actionResults);
+            logger?.trace("action done, pausing", actionResults);
             await new Promise<void>(resolve =>
               setTimeout(resolve, ACTION_DELAY)
             );
-            logger?.debug("action done, pausing done");
+            logger?.trace("action done, pausing done");
           }
         }
         await this.#invalidateActionEditResponse(actionResults);
         return actionResults;
       } finally {
         if (process.env.NODE_ENV !== "production") {
-          logger?.debug(
+          logger?.trace(
             "optimistic action complete; remove the results",
           );
         }

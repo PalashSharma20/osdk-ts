@@ -26,6 +26,11 @@ import type {
 } from "@osdk/api";
 import type { ObserveObjectsCallbackArgs } from "@osdk/client/unstable-do-not-use";
 import React from "react";
+import {
+  getDevToolsOverrideStore,
+  OSDK_HOOK_METADATA,
+  type OsdkObjectsMetadata,
+} from "./devtools-metadata.js";
 import { makeExternalStore } from "./makeExternalStore.js";
 import { OsdkContext2 } from "./OsdkContext2.js";
 
@@ -144,7 +149,7 @@ export interface UseOsdkObjectsOptions<
 export interface UseOsdkListResult<
   T extends ObjectOrInterfaceDefinition,
   RDPs extends Record<string, SimplePropertyDef> = {},
-  EXTRA_OPTIONS extends never | "$rid" = never,
+  EXTRA_OPTIONS extends "$rid" = never,
 > {
   /**
    * Function to fetch more pages (undefined if no more pages)
@@ -293,6 +298,78 @@ export function useOsdkObjects<
     [JSON.stringify($select)],
   );
 
+  const __devtoolsMetadata = React.useRef<OsdkObjectsMetadata | null>(null);
+  if (
+    process.env.NODE_ENV !== "production" && __devtoolsMetadata.current == null
+  ) {
+    __devtoolsMetadata.current = {
+      [OSDK_HOOK_METADATA]: true,
+      hookType: "useOsdkObjects",
+      objectType: type.apiName,
+      where: canonWhere,
+      orderBy: stableOrderBy,
+      pageSize,
+    };
+  }
+
+  const overrideStore = getDevToolsOverrideStore();
+
+  const querySignature = React.useMemo(() => {
+    if (process.env.NODE_ENV !== "production") {
+      const apiNameStr = typeof type === "string" ? type : type.apiName;
+      return `useOsdkObjects:${apiNameStr}:${JSON.stringify(canonWhere)}:${
+        JSON.stringify(stableOrderBy ?? {})
+      }`;
+    }
+    return undefined;
+  }, [type, canonWhere, stableOrderBy]);
+
+  const override = React.useSyncExternalStore(
+    React.useCallback(
+      (notify: () => void) => overrideStore?.subscribe(notify) ?? (() => {}),
+      [overrideStore],
+    ),
+    React.useCallback(
+      () => overrideStore?.getOverrideBySignature(querySignature ?? ""),
+      [overrideStore, querySignature],
+    ),
+    () => undefined,
+  );
+
+  const effectiveWhere = React.useMemo(() => {
+    if (override?.enabled && override.overrideParams.where !== undefined) {
+      try {
+        return observableClient.canonicalizeWhereClause(
+          override.overrideParams.where as WhereClause<Q>,
+        );
+      } catch {
+        return canonWhere;
+      }
+    }
+    return canonWhere;
+  }, [override, canonWhere, observableClient]);
+
+  const effectiveOrderBy = React.useMemo(() => {
+    if (override?.enabled && override.overrideParams.orderBy !== undefined) {
+      return override.overrideParams.orderBy as typeof stableOrderBy;
+    }
+    return stableOrderBy;
+  }, [override, stableOrderBy]);
+
+  const effectivePageSize = override?.enabled
+    ? (override.overrideParams.pageSize as number | undefined) ?? pageSize
+    : pageSize;
+
+  React.useEffect(() => {
+    if (process.env.NODE_ENV !== "production") {
+      observableClient.registerListHook?.(type, {
+        where: canonWhere,
+        pageSize,
+        orderBy: stableOrderBy,
+      });
+    }
+  }, [observableClient, type, canonWhere, pageSize, stableOrderBy]);
+
   const { subscribe, getSnapShot } = React.useMemo(
     () => {
       if (!enabled) {
@@ -315,8 +392,8 @@ export function useOsdkObjects<
             rids: stableRids,
             where: stableCanonWhere,
             dedupeInterval: dedupeIntervalMs ?? 2_000,
-            pageSize,
-            orderBy: stableOrderBy,
+            pageSize: effectivePageSize,
+            orderBy: effectiveOrderBy,
             streamUpdates,
             withProperties: stableWithProperties,
             autoFetchMore,
@@ -328,6 +405,7 @@ export function useOsdkObjects<
             ...($loadPropertySecurityMetadata
               ? { $loadPropertySecurityMetadata }
               : {}),
+            __devtoolsSignature: querySignature,
           }, observer),
         process.env.NODE_ENV !== "production"
           ? `list ${type.apiName} ${
@@ -344,8 +422,8 @@ export function useOsdkObjects<
       stableRids,
       stableCanonWhere,
       dedupeIntervalMs,
-      pageSize,
-      stableOrderBy,
+      effectivePageSize,
+      effectiveOrderBy,
       streamUpdates,
       stableWithProperties,
       autoFetchMore,
@@ -353,6 +431,7 @@ export function useOsdkObjects<
       pivotTo,
       stableSelect,
       $loadPropertySecurityMetadata,
+      querySignature,
     ],
   );
 
