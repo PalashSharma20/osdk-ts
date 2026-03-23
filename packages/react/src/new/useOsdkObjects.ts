@@ -24,10 +24,72 @@ import type {
   SimplePropertyDef,
   WhereClause,
 } from "@osdk/api";
-import type { ObserveObjectsCallbackArgs } from "@osdk/client/unstable-do-not-use";
+import type {
+  ObservableClient,
+  ObserveObjectsCallbackArgs,
+  Observer,
+  Unsubscribable,
+} from "@osdk/client/unstable-do-not-use";
 import React from "react";
-import { makeExternalStore } from "./makeExternalStore.js";
+import { extractPayloadError, makeExternalStore } from "./makeExternalStore.js";
+import {
+  getClientId,
+  isSuspenseOption,
+  setupSuspenseStore,
+} from "./makeSuspenseExternalStore.js";
 import { OsdkContext2 } from "./OsdkContext2.js";
+
+/** @internal */
+export interface _CreateListObservationOptions<
+  Q extends ObjectOrInterfaceDefinition,
+  RDPs extends Record<string, SimplePropertyDef> = {},
+> {
+  type: Pick<Q, "apiName" | "type">;
+  rids?: readonly string[];
+  where?: WhereClause<Q, RDPs>;
+  dedupeInterval: number;
+  pageSize?: number;
+  orderBy?: { [K in PropertyKeys<Q>]?: "asc" | "desc" };
+  streamUpdates?: boolean;
+  withProperties?: DerivedProperty.Clause<Q>;
+  autoFetchMore?: boolean | number;
+  intersectWith?: Array<{ where: WhereClause<Q, RDPs> }>;
+  pivotTo?: LinkNames<Q>;
+  select?: readonly PropertyKeys<Q>[];
+  $loadPropertySecurityMetadata?: boolean;
+}
+
+/** @internal */
+export function _createListObservation<
+  Q extends ObjectOrInterfaceDefinition,
+  RDPs extends Record<string, SimplePropertyDef> = {},
+>(
+  observableClient: ObservableClient,
+  options: _CreateListObservationOptions<Q, RDPs>,
+): (
+  observer: Observer<ObserveObjectsCallbackArgs<Q, RDPs> | undefined>,
+) => Unsubscribable {
+  return (observer) =>
+    observableClient.observeList({
+      type: options.type,
+      rids: options.rids,
+      where: options.where,
+      dedupeInterval: options.dedupeInterval,
+      pageSize: options.pageSize,
+      orderBy: options.orderBy,
+      streamUpdates: options.streamUpdates,
+      withProperties: options.withProperties,
+      autoFetchMore: options.autoFetchMore,
+      ...(options.intersectWith
+        ? { intersectWith: options.intersectWith }
+        : {}),
+      ...(options.pivotTo ? { pivotTo: options.pivotTo } : {}),
+      ...(options.select ? { select: options.select } : {}),
+      ...(options.$loadPropertySecurityMetadata
+        ? { $loadPropertySecurityMetadata: options.$loadPropertySecurityMetadata }
+        : {}),
+    }, observer);
+}
 
 export interface UseOsdkObjectsOptions<
   T extends ObjectOrInterfaceDefinition,
@@ -188,6 +250,22 @@ export interface UseOsdkListResult<
   totalCount?: string;
 }
 
+export interface UseOsdkListSuspenseResult<
+  T extends ObjectOrInterfaceDefinition,
+  RDPs extends Record<string, SimplePropertyDef> = {},
+  EXTRA_OPTIONS extends never | "$rid" = never,
+> {
+  data: Osdk.Instance<
+    T,
+    "$allBaseProperties" | EXTRA_OPTIONS,
+    PropertyKeys<T>,
+    RDPs
+  >[];
+  fetchMore: (() => Promise<void>) | undefined;
+  isOptimistic: boolean;
+  totalCount?: string;
+}
+
 const EMPTY_WHERE = {};
 
 declare const process: {
@@ -195,6 +273,46 @@ declare const process: {
     NODE_ENV: "development" | "production";
   };
 };
+
+export function useOsdkObjects<
+  Q extends ObjectOrInterfaceDefinition,
+  L extends LinkNames<Q>,
+>(
+  type: Q,
+  options:
+    & Omit<UseOsdkObjectsOptions<Q>, "enabled">
+    & { suspense: true; pivotTo: L; rids: readonly string[] },
+): UseOsdkListSuspenseResult<LinkedType<Q, L>, {}, "$rid">;
+
+export function useOsdkObjects<
+  Q extends ObjectOrInterfaceDefinition,
+  L extends LinkNames<Q>,
+>(
+  type: Q,
+  options:
+    & Omit<UseOsdkObjectsOptions<Q>, "enabled">
+    & { suspense: true; pivotTo: L },
+): UseOsdkListSuspenseResult<LinkedType<Q, L>>;
+
+export function useOsdkObjects<
+  Q extends ObjectOrInterfaceDefinition,
+  RDPs extends Record<string, SimplePropertyDef> = {},
+>(
+  type: Q,
+  options:
+    & Omit<UseOsdkObjectsOptions<Q, RDPs>, "enabled">
+    & { suspense: true; rids: readonly string[] },
+): UseOsdkListSuspenseResult<Q, RDPs, "$rid">;
+
+export function useOsdkObjects<
+  Q extends ObjectOrInterfaceDefinition,
+  RDPs extends Record<string, SimplePropertyDef> = {},
+>(
+  type: Q,
+  options:
+    & Omit<UseOsdkObjectsOptions<Q, RDPs>, "enabled">
+    & { suspense: true },
+): UseOsdkListSuspenseResult<Q, RDPs>;
 
 export function useOsdkObjects<
   Q extends ObjectOrInterfaceDefinition,
@@ -233,20 +351,27 @@ export function useOsdkObjects<
   RDPs extends Record<string, SimplePropertyDef> = {},
 >(
   type: Q,
-  options?: UseOsdkObjectsOptions<Q, RDPs>,
+  options?:
+    | UseOsdkObjectsOptions<Q, RDPs>
+    | (Omit<UseOsdkObjectsOptions<Q, RDPs>, "enabled"> & { suspense: true }),
 ):
   | UseOsdkListResult<Q, RDPs>
   | UseOsdkListResult<Q, RDPs, "$rid">
   | UseOsdkListResult<LinkedType<Q, LinkNames<Q>>>
   | UseOsdkListResult<LinkedType<Q, LinkNames<Q>>, {}, "$rid">
+  | UseOsdkListSuspenseResult<Q, RDPs>
+  | UseOsdkListSuspenseResult<Q, RDPs, "$rid">
+  | UseOsdkListSuspenseResult<LinkedType<Q, LinkNames<Q>>>
+  | UseOsdkListSuspenseResult<LinkedType<Q, LinkNames<Q>>, {}, "$rid">
 {
   const { observableClient } = React.useContext(OsdkContext2);
+
+  const isSuspense = isSuspenseOption(options);
 
   const {
     pageSize,
     dedupeIntervalMs,
     withProperties,
-    enabled = true,
     rids,
     where,
     orderBy,
@@ -257,6 +382,12 @@ export function useOsdkObjects<
     $select,
     $loadPropertySecurityMetadata,
   } = options ?? {};
+
+  const enabled = isSuspense
+    ? true
+    : (options != null && "enabled" in options
+      ? options.enabled ?? true
+      : true);
 
   const canonWhere = observableClient.canonicalizeWhereClause<
     Q,
@@ -293,54 +424,26 @@ export function useOsdkObjects<
     [JSON.stringify($select)],
   );
 
-  const { subscribe, getSnapShot } = React.useMemo(
-    () => {
-      if (!enabled) {
-        return makeExternalStore<
-          ObserveObjectsCallbackArgs<Q, RDPs>
-        >(
-          () => ({ unsubscribe: () => {} }),
-          process.env.NODE_ENV !== "production"
-            ? `list ${type.apiName} [DISABLED]`
-            : void 0,
-        );
-      }
-
-      return makeExternalStore<
-        ObserveObjectsCallbackArgs<Q, RDPs>
-      >(
-        (observer) =>
-          observableClient.observeList({
-            type,
-            rids: stableRids,
-            where: stableCanonWhere,
-            dedupeInterval: dedupeIntervalMs ?? 2_000,
-            pageSize,
-            orderBy: stableOrderBy,
-            streamUpdates,
-            withProperties: stableWithProperties,
-            autoFetchMore,
-            ...(stableIntersectWith
-              ? { intersectWith: stableIntersectWith }
-              : {}),
-            ...(pivotTo ? { pivotTo } : {}),
-            ...(stableSelect ? { select: stableSelect } : {}),
-            ...($loadPropertySecurityMetadata
-              ? { $loadPropertySecurityMetadata }
-              : {}),
-          }, observer),
-        process.env.NODE_ENV !== "production"
-          ? `list ${type.apiName} ${
-            stableRids ? `[${stableRids.length} rids]` : ""
-          } ${JSON.stringify(stableCanonWhere)}`
-          : void 0,
-      );
-    },
+  const observationFactory = React.useMemo(
+    () =>
+      _createListObservation<Q, RDPs>(observableClient, {
+        type,
+        rids: stableRids,
+        where: stableCanonWhere,
+        dedupeInterval: dedupeIntervalMs ?? 2_000,
+        pageSize,
+        orderBy: stableOrderBy,
+        streamUpdates,
+        withProperties: stableWithProperties,
+        autoFetchMore,
+        intersectWith: stableIntersectWith,
+        pivotTo,
+        select: stableSelect,
+        $loadPropertySecurityMetadata,
+      }),
     [
-      enabled,
       observableClient,
-      type.apiName,
-      type.type,
+      type,
       stableRids,
       stableCanonWhere,
       dedupeIntervalMs,
@@ -356,19 +459,79 @@ export function useOsdkObjects<
     ],
   );
 
+  const baseStore = React.useMemo(
+    () => {
+      if (isSuspense || !enabled) {
+        return makeExternalStore<
+          ObserveObjectsCallbackArgs<Q, RDPs>
+        >(
+          () => ({ unsubscribe: () => {} }),
+          process.env.NODE_ENV !== "production"
+            ? `list ${type.apiName} [INACTIVE]`
+            : void 0,
+        );
+      }
+
+      return makeExternalStore<
+        ObserveObjectsCallbackArgs<Q, RDPs>
+      >(
+        observationFactory,
+        process.env.NODE_ENV !== "production"
+          ? `list ${type.apiName} ${
+            stableRids ? `[${stableRids.length} rids]` : ""
+          } ${JSON.stringify(stableCanonWhere)}`
+          : void 0,
+      );
+    },
+    [
+      isSuspense,
+      enabled,
+      observationFactory,
+      type.apiName,
+      stableRids,
+      stableCanonWhere,
+    ],
+  );
+
+  let { subscribe, getSnapShot } = baseStore;
+  if (isSuspense) {
+    const cacheKey =
+      `${getClientId(observableClient)}:list:${type.apiName}:${
+        JSON.stringify(stableCanonWhere)
+      }`
+      + `:${JSON.stringify(stableRids ?? null)}`
+      + `:${pageSize ?? ""}:${dedupeIntervalMs ?? ""}`
+      + `:${JSON.stringify(stableOrderBy ?? null)}`
+      + `:${streamUpdates ?? ""}:${JSON.stringify(autoFetchMore ?? null)}`
+      + `:${JSON.stringify(stableWithProperties ?? null)}`
+      + `:${JSON.stringify(stableIntersectWith ?? null)}`
+      + `:${pivotTo ?? ""}:${JSON.stringify(stableSelect ?? null)}`;
+
+    ({ subscribe, getSnapShot } = setupSuspenseStore<
+      ObserveObjectsCallbackArgs<Q, RDPs>
+    >(
+      cacheKey,
+      observationFactory,
+      undefined,
+      (p) => p?.resolvedList != null,
+    ));
+  }
+
   const listPayload = React.useSyncExternalStore(subscribe, getSnapShot);
 
   return React.useMemo(() => {
-    let error: Error | undefined;
-    if (listPayload && "error" in listPayload && listPayload.error) {
-      error = listPayload.error;
-    } else if (listPayload?.status === "error") {
-      error = new Error("Failed to load objects");
+    if (isSuspense) {
+      return {
+        fetchMore: listPayload?.hasMore ? listPayload.fetchMore : undefined,
+        data: listPayload?.resolvedList ?? [],
+        isOptimistic: listPayload?.isOptimistic ?? false,
+        totalCount: listPayload?.totalCount,
+      };
     }
 
     return {
       fetchMore: listPayload?.hasMore ? listPayload.fetchMore : undefined,
-      error,
+      error: extractPayloadError(listPayload, "Failed to load objects"),
       data: listPayload?.resolvedList,
       isLoading: enabled
         ? (listPayload?.status === "loading" || listPayload?.status === "init"
@@ -377,5 +540,5 @@ export function useOsdkObjects<
       isOptimistic: listPayload?.isOptimistic ?? false,
       totalCount: listPayload?.totalCount,
     };
-  }, [listPayload, enabled]);
+  }, [listPayload, enabled, isSuspense]);
 }

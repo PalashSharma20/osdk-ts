@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+export { OsdkErrorBoundary } from "../new/OsdkErrorBoundary.js";
+export type { OsdkErrorBoundaryProps } from "../new/OsdkErrorBoundary.js";
 export { OsdkProvider2 } from "../new/OsdkProvider2.js";
 export { useLinks } from "../new/useLinks.js";
 export { useObjectSet } from "../new/useObjectSet.js";
@@ -25,9 +27,11 @@ export type {
   UseOsdkFunctionResult,
 } from "../new/useOsdkFunction.js";
 export { useOsdkFunction } from "../new/useOsdkFunction.js";
+export type { UseOsdkObjectSuspenseResult } from "../new/useOsdkObject.js";
 export { useOsdkObject } from "../new/useOsdkObject.js";
 export type {
   UseOsdkListResult,
+  UseOsdkListSuspenseResult,
   UseOsdkObjectsOptions,
 } from "../new/useOsdkObjects.js";
 export { useOsdkObjects } from "../new/useOsdkObjects.js";
