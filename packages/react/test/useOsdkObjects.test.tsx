@@ -30,6 +30,7 @@ import { useOsdkObjects } from "../src/new/useOsdkObjects.js";
 import {
   cleanupSuspenseTests,
   createMockObservableClient,
+  mockListPayload,
   TestSuspenseWrapper,
 } from "./suspenseTestUtils.js";
 
@@ -187,74 +188,15 @@ describe("useOsdkObjects enabled option", () => {
     expect(result.current.isLoading).toBe(true);
 
     act(() => {
-      capturedObserver?.next({
-        resolvedList: [
-          { name: "A", $objectType: "MockObject", $primaryKey: "1" },
-          { name: "B", $objectType: "MockObject", $primaryKey: "2" },
-        ],
-        status: "loaded",
-        isOptimistic: false,
-        lastUpdated: Date.now(),
-        hasMore: false,
-        fetchMore: vitest.fn(),
-        totalCount: "2",
-      });
+      capturedObserver?.next(mockListPayload(
+        [{ name: "A", pk: "1" }, { name: "B", pk: "2" }],
+        { totalCount: "2" },
+      ));
     });
 
     expect(result.current.data).toHaveLength(2);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.totalCount).toBe("2");
-  });
-
-  it("should expose fetchMore when hasMore is true", () => {
-    let capturedObserver:
-      | Observer<Record<string, unknown> | undefined>
-      | undefined;
-    mockObserveList.mockImplementation(
-      (
-        _opts: unknown,
-        observer: Observer<Record<string, unknown> | undefined>,
-      ) => {
-        capturedObserver = observer;
-        return { unsubscribe: vitest.fn() };
-      },
-    );
-
-    const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useOsdkObjects(MockObjectType),
-      { wrapper },
-    );
-
-    act(() => {
-      capturedObserver?.next({
-        resolvedList: [
-          { name: "A", $objectType: "MockObject", $primaryKey: "1" },
-        ],
-        status: "loaded",
-        isOptimistic: false,
-        lastUpdated: Date.now(),
-        hasMore: true,
-        fetchMore: vitest.fn(),
-      });
-    });
-
-    expect(result.current.fetchMore).toBeDefined();
-
-    act(() => {
-      capturedObserver?.next({
-        resolvedList: [
-          { name: "A", $objectType: "MockObject", $primaryKey: "1" },
-        ],
-        status: "loaded",
-        isOptimistic: false,
-        lastUpdated: Date.now(),
-        hasMore: false,
-        fetchMore: vitest.fn(),
-      });
-    });
-
-    expect(result.current.fetchMore).toBeUndefined();
   });
 });
 
@@ -292,7 +234,7 @@ describe("useOsdkObjects with { suspense: true }", () => {
   }
 
   function ListComponent({ where }: { where?: Record<string, string> }) {
-    const { data, fetchMore, totalCount } = useOsdkObjects(
+    const { data } = useOsdkObjects(
       MockObjectTypeWithType,
       where
         ? { where, suspense: true as const }
@@ -307,13 +249,6 @@ describe("useOsdkObjects with { suspense: true }", () => {
         { "data-testid": "count" },
         String(data.length),
       ),
-      totalCount != null
-        ? React.createElement(
-          "div",
-          { "data-testid": "total" },
-          totalCount,
-        )
-        : null,
       data.map((item, i) =>
         React.createElement(
           "div",
@@ -321,13 +256,6 @@ describe("useOsdkObjects with { suspense: true }", () => {
           (item as Record<string, unknown>).name as string,
         )
       ),
-      fetchMore
-        ? React.createElement(
-          "button",
-          { "data-testid": "fetch-more", onClick: fetchMore },
-          "Load More",
-        )
-        : null,
     );
   }
 
@@ -346,25 +274,16 @@ describe("useOsdkObjects with { suspense: true }", () => {
     expect(mockObserveList).toHaveBeenCalledTimes(1);
 
     act(() => {
-      capturedObserver?.next({
-        resolvedList: [
-          { name: "Item A", $objectType: "MockObject", $primaryKey: "1" },
-          { name: "Item B", $objectType: "MockObject", $primaryKey: "2" },
-        ],
-        status: "loaded",
-        isOptimistic: false,
-        lastUpdated: Date.now(),
-        hasMore: false,
-        fetchMore: vitest.fn(),
-        totalCount: "2",
-      });
+      capturedObserver?.next(mockListPayload([
+        { name: "Item A", pk: "1" },
+        { name: "Item B", pk: "2" },
+      ]));
     });
 
     const count = await screen.findByTestId("count");
     expect(count.textContent).toBe("2");
     expect(screen.getByTestId("item-0").textContent).toBe("Item A");
     expect(screen.getByTestId("item-1").textContent).toBe("Item B");
-    expect(screen.getByTestId("total").textContent).toBe("2");
   });
 
   it("should re-suspend when where clause changes", async () => {
@@ -397,16 +316,9 @@ describe("useOsdkObjects with { suspense: true }", () => {
     );
 
     act(() => {
-      capturedObserver?.next({
-        resolvedList: [
-          { name: "Active Item", $objectType: "MockObject", $primaryKey: "1" },
-        ],
-        status: "loaded",
-        isOptimistic: false,
-        lastUpdated: Date.now(),
-        hasMore: false,
-        fetchMore: vitest.fn(),
-      });
+      capturedObserver?.next(
+        mockListPayload([{ name: "Active Item", pk: "1" }]),
+      );
     });
 
     const item0 = await screen.findByTestId("item-0");
@@ -427,20 +339,9 @@ describe("useOsdkObjects with { suspense: true }", () => {
     });
 
     await act(async () => {
-      secondObserver?.next({
-        resolvedList: [
-          {
-            name: "Inactive Item",
-            $objectType: "MockObject",
-            $primaryKey: "2",
-          },
-        ],
-        status: "loaded",
-        isOptimistic: false,
-        lastUpdated: Date.now(),
-        hasMore: false,
-        fetchMore: vitest.fn(),
-      });
+      secondObserver?.next(
+        mockListPayload([{ name: "Inactive Item", pk: "2" }]),
+      );
     });
 
     const newItem = await screen.findByTestId("item-0");
