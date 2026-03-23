@@ -76,7 +76,7 @@ export const createObjectSetHandlers = (
       const groups = new Map<string | null, number>();
 
       for (const obj of objects) {
-        const rawValue = obj[field];
+        const rawValue = obj[field ?? "__id"];
         const key = rawValue == null ? null : String(rawValue);
 
         if (key == null && !includeNullValues) {
@@ -88,7 +88,7 @@ export const createObjectSetHandlers = (
 
       const data = Array.from(groups.entries()).map(
         ([key, count]: [string | null, number]) => ({
-          group: { [field]: key },
+          group: { [field ?? ""]: key },
           metrics: [{ name: "count", value: count }],
         }),
       );

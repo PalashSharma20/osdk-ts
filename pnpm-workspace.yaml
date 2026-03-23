@@ -17,6 +17,6 @@ catalogs:
     "@osdk/foundry.geo": 2.50.0
     "@osdk/foundry.admin": 2.50.0
     "@osdk/foundry.mediasets": 2.50.0
-    "@osdk/foundry.ontologies": 2.50.0
+    "@osdk/foundry.ontologies": 2.54.0
     "@osdk/foundry.thirdpartyapplications": 2.50.0
-    "@osdk/internal.foundry.ontologies": 2.50.0
+    "@osdk/internal.foundry.ontologies": 2.54.0
