@@ -22,14 +22,14 @@ export function CbacPanel({
     setSelectedMarkingIds(markingIds);
   }, [setSelectedMarkingIds]);
 
-  const handleDialogToggle = React.useCallback(() => {
-    setIsDialogOpen((prev) => !prev);
+  const handleDialogOpenChange = React.useCallback((open: boolean) => {
+    setIsDialogOpen(open);
   }, []);
 
   const handleDialogConfirm = React.useCallback((markingIds: string[]) => {
     setSelectedMarkingIds(markingIds);
     setIsDialogOpen(false);
-  }, []);
+  }, [setSelectedMarkingIds]);
 
   const handleBannerClick = React.useCallback(() => {
     setIsDialogOpen(true);
@@ -96,7 +96,7 @@ export function CbacPanel({
         <div className="p-4">
           <div className="officenetwork-section-label mb-2">Dialog Picker</div>
           <button
-            onClick={handleDialogToggle}
+            onClick={() => setIsDialogOpen(true)}
             className="w-full px-4 py-2 text-xs font-medium bg-[var(--officenetwork-bg-elevated)] border border-[var(--officenetwork-border-default)] rounded text-[var(--officenetwork-text-secondary)] hover:text-[var(--officenetwork-text-primary)] hover:border-[var(--officenetwork-text-muted)] transition-colors"
           >
             Open Classification Dialog
@@ -108,7 +108,7 @@ export function CbacPanel({
           </button>
           <CbacPickerDialog
             isOpen={isDialogOpen}
-            onOpenChange={handleDialogToggle}
+            onOpenChange={handleDialogOpenChange}
             onConfirm={handleDialogConfirm}
             initialMarkingIds={selectedMarkingIds}
           />
