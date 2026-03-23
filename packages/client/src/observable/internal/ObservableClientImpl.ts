@@ -61,6 +61,7 @@ import type { Observer } from "../ObservableClient/common.js";
 import type { ObserveLinks } from "../ObservableClient/ObserveLink.js";
 import type { AggregationPayloadBase } from "./aggregation/AggregationQuery.js";
 import type { Canonical } from "./Canonical.js";
+import type { ObjectCacheKey } from "./object/ObjectCacheKey.js";
 import type { ObserveObjectSetOptions } from "./objectset/ObjectSetQueryOptions.js";
 import type { Store } from "./Store.js";
 import { UnsubscribableWrapper } from "./UnsubscribableWrapper.js";
@@ -304,6 +305,42 @@ export class ObservableClientImpl implements ObservableClient {
       apiName,
       primaryKey,
     );
+  }
+
+  public peekObjectData<T extends ObjectOrInterfaceDefinition>(
+    apiName: T["apiName"] | T,
+    pk: PrimaryKeyType<T>,
+  ): ObserveObjectCallbackArgs<T> | undefined {
+    const apiNameStr = typeof apiName === "string"
+      ? apiName
+      : apiName.apiName;
+
+    const cacheKey = this.__experimentalStore.cacheKeys.peek<ObjectCacheKey>(
+      "object",
+      apiNameStr,
+      pk,
+    );
+    if (!cacheKey) {
+      return undefined;
+    }
+
+    const subject = this.__experimentalStore.subjects.peek(cacheKey);
+    if (!subject) {
+      return undefined;
+    }
+
+    const payload = subject.value;
+    if (payload.status !== "loaded" || payload.value === undefined) {
+      return undefined;
+    }
+
+    return {
+      // ObjectHolder IS Osdk.Instance via cast across the type boundary
+      object: payload.value as unknown as Osdk.Instance<T>,
+      status: payload.status,
+      lastUpdated: payload.lastUpdated,
+      isOptimistic: payload.isOptimistic,
+    };
   }
 
   public canonicalizeWhereClause<

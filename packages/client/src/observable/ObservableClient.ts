@@ -534,6 +534,17 @@ export interface ObservableClient extends ObserveLinks {
   >(
     where: WhereClause<T, RDPs>,
   ) => Canonical<WhereClause<T, RDPs>>;
+
+  /**
+   * Synchronously check whether the Store has loaded data for a single object.
+   * Read-only: no refcount changes, no fetch triggers, no observation creation.
+   *
+   * @returns The full callback args if the object is loaded, undefined otherwise
+   */
+  peekObjectData<T extends ObjectOrInterfaceDefinition>(
+    apiName: T["apiName"] | T,
+    pk: PrimaryKeyType<T>,
+  ): ObserveObjectCallbackArgs<T> | undefined;
 }
 
 export function createObservableClient(client: Client): ObservableClient {
