@@ -2,7 +2,7 @@ import {
   CbacBanner,
   CbacPicker,
   CbacPickerDialog,
-} from "@osdk/react-components/experimental";
+} from "@osdk/react-components-gotham/experimental";
 import React from "react";
 
 interface CbacPanelProps {

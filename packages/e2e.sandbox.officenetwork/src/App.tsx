@@ -1,5 +1,5 @@
 import type { DerivedProperty, WhereClause } from "@osdk/api";
-import { CbacBannerPopover } from "@osdk/react-components/experimental";
+import { CbacBannerPopover } from "@osdk/react-components-gotham/experimental";
 import { useOsdkObjects } from "@osdk/react/experimental";
 import React from "react";
 import { AggregationStatsPanel } from "./components/AggregationStatsPanel.js";

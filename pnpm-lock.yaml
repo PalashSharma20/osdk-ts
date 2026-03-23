@@ -3311,6 +3311,9 @@ importers:
       '@osdk/react-components':
         specifier: workspace:~
         version: link:../react-components
+      '@osdk/react-components-gotham':
+        specifier: workspace:~
+        version: link:../react-components-gotham
       '@osdk/react-components-styles':
         specifier: workspace:~
         version: link:../react-components-styles
@@ -4638,6 +4641,9 @@ importers:
       '@osdk/react-components':
         specifier: workspace:*
         version: link:../react-components
+      '@osdk/react-components-gotham':
+        specifier: workspace:*
+        version: link:../react-components-gotham
       '@osdk/react-components-styles':
         specifier: workspace:*
         version: link:../react-components-styles
