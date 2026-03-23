@@ -509,7 +509,7 @@
 <header>
   <div class="wrap">
     <h1>Components Manifest</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">3/3 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">3/3 infos</a><span class="filter-pill ok" aria-disabled="true">41 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">4/4 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">4/4 infos</a><span class="filter-pill ok" aria-disabled="true">47 stories ok</span></div>
   </div>
 </header>
 <main>
@@ -522,14 +522,393 @@
   has-info 
   no-story-error"
   role="listitem"
+  aria-label="BasePdfViewer">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> BasePdfViewer</h2>
+      <div class="badges">
+        <label for="c-0-components-pdfviewer-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-0-components-pdfviewer-info" class="badge info as-toggle">1 info</label>
+        <label for="c-0-components-pdfviewer-stories" class="badge ok as-toggle">6 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/PdfViewer.stories.tsx">components-pdfviewer · ./src/stories/PdfViewer/PdfViewer.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-0-components-pdfviewer-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-0-components-pdfviewer-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-0-components-pdfviewer-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;BasePdfViewer&quot; component.
+  23 |   &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+  24 |
+&gt; 25 | const meta: Meta&lt;PdfViewerProps&gt; = {
+     | ^
+  26 |   title: &quot;Components/PdfViewer&quot;,
+  27 |   component: BasePdfViewer,
+  28 |   args: {
+
+./src/stories/PdfViewer/PdfViewer.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type { PdfViewerProps } from &quot;@osdk/react-components/experimental&quot;;
+import { BasePdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { delay, http } from &quot;msw&quot;;
+import { fn } from &quot;storybook/test&quot;;
+const SAMPLE_PDF_URL =
+  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+
+const meta: Meta&lt;PdfViewerProps&gt; = {
+  title: &quot;Components/PdfViewer&quot;,
+  component: BasePdfViewer,
+  args: {
+    src: SAMPLE_PDF_URL,
+  },
+  render: (args: PdfViewerProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;BasePdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    controls: {
+      expanded: true,
+    },
+  },
+  argTypes: {
+    src: {
+      description: &quot;PDF source — URL string or ArrayBuffer&quot;,
+      control: &quot;text&quot;,
+    },
+    annotations: {
+      description:
+        &quot;Annotations to overlay on the PDF, keyed by page number (1-indexed)&quot;,
+      control: &quot;object&quot;,
+    },
+    onAnnotationClick: {
+      description: &quot;Callback fired when an annotation is clicked&quot;,
+      control: false,
+      table: { category: &quot;Events&quot; },
+    },
+    initialPage: {
+      description: &quot;Page to display on first render (1-indexed)&quot;,
+      control: &quot;number&quot;,
+      table: { defaultValue: { summary: &quot;1&quot; } },
+    },
+    initialScale: {
+      description: &quot;Initial zoom scale&quot;,
+      control: &quot;number&quot;,
+      table: { defaultValue: { summary: &quot;1.0&quot; } },
+    },
+    initialSidebarOpen: {
+      description: &quot;Whether the thumbnail sidebar is initially open&quot;,
+      control: &quot;boolean&quot;,
+      table: { defaultValue: { summary: &quot;false&quot; } },
+    },
+    className: {
+      description: &quot;Additional CSS class name for the root element&quot;,
+      control: &quot;text&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer src=&quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot; /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithAnnotations: Story = {
+  args: {
+    onAnnotationClick: fn(),
+    annotations: {
+      1: [
+        {
+          id: &quot;h1&quot;,
+          type: &quot;highlight&quot;,
+          page: 1,
+          rect: { x: 100, y: 700, width: 200, height: 20 },
+          label: &quot;Important text&quot;,
+        },
+        {
+          id: &quot;u1&quot;,
+          type: &quot;underline&quot;,
+          page: 1,
+          rect: { x: 100, y: 650, width: 150, height: 2 },
+        },
+        {
+          id: &quot;c1&quot;,
+          type: &quot;comment&quot;,
+          page: 1,
+          rect: { x: 400, y: 600, width: 24, height: 24 },
+          label: &quot;Review this section&quot;,
+        },
+        {
+          id: &quot;p1&quot;,
+          type: &quot;pin&quot;,
+          page: 1,
+          rect: { x: 300, y: 500, width: 16, height: 16 },
+          label: &quot;Pin marker&quot;,
+        },
+      ],
+    },
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer
+  src=&quot;...&quot;
+  annotations={{
+    1: [
+      { id: &quot;h1&quot;, type: &quot;highlight&quot;, page: 1, rect: { x: 100, y: 700, width: 200, height: 20 }, label: &quot;Important text&quot; },
+      { id: &quot;u1&quot;, type: &quot;underline&quot;, page: 1, rect: { x: 100, y: 650, width: 150, height: 2 } },
+      { id: &quot;c1&quot;, type: &quot;comment&quot;, page: 1, rect: { x: 400, y: 600, width: 24, height: 24 }, label: &quot;Review this&quot; },
+      { id: &quot;p1&quot;, type: &quot;pin&quot;, page: 1, rect: { x: 300, y: 500, width: 16, height: 16 }, label: &quot;Pin&quot; },
+    ],
+  }}
+  onAnnotationClick={(annotation) =&gt; handleAnnotationClick(annotation)}
+/&gt;`,
+      },
+    },
+  },
+};
+
+export const WithSidebar: Story = {
+  args: {
+    initialSidebarOpen: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer src=&quot;...&quot; initialSidebarOpen /&gt;`,
+      },
+    },
+  },
+};
+
+export const CustomScale: Story = {
+  args: {
+    initialScale: 1.5,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer src=&quot;...&quot; initialScale={1.5} /&gt;`,
+      },
+    },
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    src: &quot;/loading.pdf&quot;,
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(&quot;/loading.pdf&quot;, async () =&gt; {
+          await delay(&quot;infinite&quot;);
+        }),
+      ],
+    },
+  },
+};
+
+export const Error: Story = {
+  args: {
+    src: &quot;/error.pdf&quot;,
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(&quot;/error.pdf&quot;, () =&gt; {
+          return new Response(&quot;Server Error&quot;, { status: 500 });
+        }),
+      ],
+    },
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { BasePdfViewer } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src={SAMPLE_PDF_URL} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Annotations</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithAnnotations = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer
+        src={SAMPLE_PDF_URL}
+        onAnnotationClick={fn()}
+        annotations={{
+          1: [
+            {
+              id: &quot;h1&quot;,
+              type: &quot;highlight&quot;,
+              page: 1,
+              rect: { x: 100, y: 700, width: 200, height: 20 },
+              label: &quot;Important text&quot;,
+            },
+            {
+              id: &quot;u1&quot;,
+              type: &quot;underline&quot;,
+              page: 1,
+              rect: { x: 100, y: 650, width: 150, height: 2 },
+            },
+            {
+              id: &quot;c1&quot;,
+              type: &quot;comment&quot;,
+              page: 1,
+              rect: { x: 400, y: 600, width: 24, height: 24 },
+              label: &quot;Review this section&quot;,
+            },
+            {
+              id: &quot;p1&quot;,
+              type: &quot;pin&quot;,
+              page: 1,
+              rect: { x: 300, y: 500, width: 16, height: 16 },
+              label: &quot;Pin marker&quot;,
+            },
+          ],
+        }} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Sidebar</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithSidebar = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src={SAMPLE_PDF_URL} initialSidebarOpen /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Custom Scale</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CustomScale = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src={SAMPLE_PDF_URL} initialScale={1.5} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Loading</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Loading = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src=&quot;/loading.pdf&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Error</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Error = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src=&quot;/error.pdf&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
   aria-label="BaseTable">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-err"></span> BaseTable</h2>
       <div class="badges">
-        <label for="c-0-components-basetable-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-0-components-basetable-info" class="badge info as-toggle">1 info</label>
-        <label for="c-0-components-basetable-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-1-components-basetable-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-1-components-basetable-info" class="badge info as-toggle">1 info</label>
+        <label for="c-1-components-basetable-stories" class="badge ok as-toggle">8 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/BaseTable/BaseTable.stories.tsx">components-basetable · ./src/stories/BaseTable/BaseTable.stories.tsx</div>
@@ -539,9 +918,9 @@
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-0-components-basetable-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-0-components-basetable-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-0-components-basetable-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-1-components-basetable-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-1-components-basetable-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-1-components-basetable-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -1436,9 +1815,9 @@ export const ErrorState: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> FilterList</h2>
       <div class="badges">
-        <label for="c-1-components-filterlist-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-1-components-filterlist-info" class="badge info as-toggle">1 info</label>
-        <label for="c-1-components-filterlist-stories" class="badge ok as-toggle">13 stories</label>
+        <label for="c-2-components-filterlist-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-2-components-filterlist-info" class="badge info as-toggle">1 info</label>
+        <label for="c-2-components-filterlist-stories" class="badge ok as-toggle">13 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/FilterList/FilterList.stories.tsx">components-filterlist · ./src/stories/FilterList/FilterList.stories.tsx</div>
@@ -1448,9 +1827,9 @@ export const ErrorState: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-1-components-filterlist-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-1-components-filterlist-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-1-components-filterlist-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-2-components-filterlist-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-2-components-filterlist-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-2-components-filterlist-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -2514,9 +2893,9 @@ export const CombinedWithObjectTable: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> ObjectTable</h2>
       <div class="badges">
-        <label for="c-2-components-objecttable-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-2-components-objecttable-info" class="badge info as-toggle">1 info</label>
-        <label for="c-2-components-objecttable-stories" class="badge ok as-toggle">20 stories</label>
+        <label for="c-3-components-objecttable-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-3-components-objecttable-info" class="badge info as-toggle">1 info</label>
+        <label for="c-3-components-objecttable-stories" class="badge ok as-toggle">20 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/ObjectTable/ObjectTable.stories.tsx">components-objecttable · ./src/stories/ObjectTable/ObjectTable.stories.tsx</div>
@@ -2526,9 +2905,9 @@ export const CombinedWithObjectTable: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-2-components-objecttable-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-2-components-objecttable-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-2-components-objecttable-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-3-components-objecttable-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-3-components-objecttable-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-3-components-objecttable-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -4538,9 +4917,388 @@ return (
           <label for="no-component-import-found-toggle" class="group-header">
             <span class="caret">▸</span>
             <span class="group-title">No component import found</span>
-            <span class="group-count">3</span>
+            <span class="group-count">4</span>
           </label>
           <div class="group-cards">
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="BasePdfViewer">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> BasePdfViewer</h2>
+      <div class="badges">
+        <label for="c-error-0-components-pdfviewer-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-0-components-pdfviewer-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-0-components-pdfviewer-stories" class="badge ok as-toggle">6 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/PdfViewer.stories.tsx">components-pdfviewer · ./src/stories/PdfViewer/PdfViewer.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-0-components-pdfviewer-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-0-components-pdfviewer-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-0-components-pdfviewer-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;BasePdfViewer&quot; component.
+  23 |   &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+  24 |
+&gt; 25 | const meta: Meta&lt;PdfViewerProps&gt; = {
+     | ^
+  26 |   title: &quot;Components/PdfViewer&quot;,
+  27 |   component: BasePdfViewer,
+  28 |   args: {
+
+./src/stories/PdfViewer/PdfViewer.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type { PdfViewerProps } from &quot;@osdk/react-components/experimental&quot;;
+import { BasePdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { delay, http } from &quot;msw&quot;;
+import { fn } from &quot;storybook/test&quot;;
+const SAMPLE_PDF_URL =
+  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+
+const meta: Meta&lt;PdfViewerProps&gt; = {
+  title: &quot;Components/PdfViewer&quot;,
+  component: BasePdfViewer,
+  args: {
+    src: SAMPLE_PDF_URL,
+  },
+  render: (args: PdfViewerProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;BasePdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    controls: {
+      expanded: true,
+    },
+  },
+  argTypes: {
+    src: {
+      description: &quot;PDF source — URL string or ArrayBuffer&quot;,
+      control: &quot;text&quot;,
+    },
+    annotations: {
+      description:
+        &quot;Annotations to overlay on the PDF, keyed by page number (1-indexed)&quot;,
+      control: &quot;object&quot;,
+    },
+    onAnnotationClick: {
+      description: &quot;Callback fired when an annotation is clicked&quot;,
+      control: false,
+      table: { category: &quot;Events&quot; },
+    },
+    initialPage: {
+      description: &quot;Page to display on first render (1-indexed)&quot;,
+      control: &quot;number&quot;,
+      table: { defaultValue: { summary: &quot;1&quot; } },
+    },
+    initialScale: {
+      description: &quot;Initial zoom scale&quot;,
+      control: &quot;number&quot;,
+      table: { defaultValue: { summary: &quot;1.0&quot; } },
+    },
+    initialSidebarOpen: {
+      description: &quot;Whether the thumbnail sidebar is initially open&quot;,
+      control: &quot;boolean&quot;,
+      table: { defaultValue: { summary: &quot;false&quot; } },
+    },
+    className: {
+      description: &quot;Additional CSS class name for the root element&quot;,
+      control: &quot;text&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer src=&quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot; /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithAnnotations: Story = {
+  args: {
+    onAnnotationClick: fn(),
+    annotations: {
+      1: [
+        {
+          id: &quot;h1&quot;,
+          type: &quot;highlight&quot;,
+          page: 1,
+          rect: { x: 100, y: 700, width: 200, height: 20 },
+          label: &quot;Important text&quot;,
+        },
+        {
+          id: &quot;u1&quot;,
+          type: &quot;underline&quot;,
+          page: 1,
+          rect: { x: 100, y: 650, width: 150, height: 2 },
+        },
+        {
+          id: &quot;c1&quot;,
+          type: &quot;comment&quot;,
+          page: 1,
+          rect: { x: 400, y: 600, width: 24, height: 24 },
+          label: &quot;Review this section&quot;,
+        },
+        {
+          id: &quot;p1&quot;,
+          type: &quot;pin&quot;,
+          page: 1,
+          rect: { x: 300, y: 500, width: 16, height: 16 },
+          label: &quot;Pin marker&quot;,
+        },
+      ],
+    },
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer
+  src=&quot;...&quot;
+  annotations={{
+    1: [
+      { id: &quot;h1&quot;, type: &quot;highlight&quot;, page: 1, rect: { x: 100, y: 700, width: 200, height: 20 }, label: &quot;Important text&quot; },
+      { id: &quot;u1&quot;, type: &quot;underline&quot;, page: 1, rect: { x: 100, y: 650, width: 150, height: 2 } },
+      { id: &quot;c1&quot;, type: &quot;comment&quot;, page: 1, rect: { x: 400, y: 600, width: 24, height: 24 }, label: &quot;Review this&quot; },
+      { id: &quot;p1&quot;, type: &quot;pin&quot;, page: 1, rect: { x: 300, y: 500, width: 16, height: 16 }, label: &quot;Pin&quot; },
+    ],
+  }}
+  onAnnotationClick={(annotation) =&gt; handleAnnotationClick(annotation)}
+/&gt;`,
+      },
+    },
+  },
+};
+
+export const WithSidebar: Story = {
+  args: {
+    initialSidebarOpen: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer src=&quot;...&quot; initialSidebarOpen /&gt;`,
+      },
+    },
+  },
+};
+
+export const CustomScale: Story = {
+  args: {
+    initialScale: 1.5,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer src=&quot;...&quot; initialScale={1.5} /&gt;`,
+      },
+    },
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    src: &quot;/loading.pdf&quot;,
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(&quot;/loading.pdf&quot;, async () =&gt; {
+          await delay(&quot;infinite&quot;);
+        }),
+      ],
+    },
+  },
+};
+
+export const Error: Story = {
+  args: {
+    src: &quot;/error.pdf&quot;,
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(&quot;/error.pdf&quot;, () =&gt; {
+          return new Response(&quot;Server Error&quot;, { status: 500 });
+        }),
+      ],
+    },
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { BasePdfViewer } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src={SAMPLE_PDF_URL} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Annotations</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithAnnotations = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer
+        src={SAMPLE_PDF_URL}
+        onAnnotationClick={fn()}
+        annotations={{
+          1: [
+            {
+              id: &quot;h1&quot;,
+              type: &quot;highlight&quot;,
+              page: 1,
+              rect: { x: 100, y: 700, width: 200, height: 20 },
+              label: &quot;Important text&quot;,
+            },
+            {
+              id: &quot;u1&quot;,
+              type: &quot;underline&quot;,
+              page: 1,
+              rect: { x: 100, y: 650, width: 150, height: 2 },
+            },
+            {
+              id: &quot;c1&quot;,
+              type: &quot;comment&quot;,
+              page: 1,
+              rect: { x: 400, y: 600, width: 24, height: 24 },
+              label: &quot;Review this section&quot;,
+            },
+            {
+              id: &quot;p1&quot;,
+              type: &quot;pin&quot;,
+              page: 1,
+              rect: { x: 300, y: 500, width: 16, height: 16 },
+              label: &quot;Pin marker&quot;,
+            },
+          ],
+        }} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Sidebar</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithSidebar = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src={SAMPLE_PDF_URL} initialSidebarOpen /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Custom Scale</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CustomScale = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src={SAMPLE_PDF_URL} initialScale={1.5} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Loading</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Loading = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src=&quot;/loading.pdf&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Error</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Error = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer src=&quot;/error.pdf&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
 <article
   class="card 
   has-error 
@@ -4552,9 +5310,9 @@ return (
     <div class="title">
       <h2><span class="status-dot dot-err"></span> BaseTable</h2>
       <div class="badges">
-        <label for="c-error-0-components-basetable-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-0-components-basetable-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-0-components-basetable-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-error-1-components-basetable-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-1-components-basetable-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-1-components-basetable-stories" class="badge ok as-toggle">8 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/BaseTable/BaseTable.stories.tsx">components-basetable · ./src/stories/BaseTable/BaseTable.stories.tsx</div>
@@ -4564,9 +5322,9 @@ return (
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-0-components-basetable-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-0-components-basetable-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-0-components-basetable-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-1-components-basetable-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-1-components-basetable-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-1-components-basetable-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -5461,9 +6219,9 @@ export const ErrorState: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> FilterList</h2>
       <div class="badges">
-        <label for="c-error-1-components-filterlist-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-1-components-filterlist-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-1-components-filterlist-stories" class="badge ok as-toggle">13 stories</label>
+        <label for="c-error-2-components-filterlist-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-2-components-filterlist-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-2-components-filterlist-stories" class="badge ok as-toggle">13 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/FilterList/FilterList.stories.tsx">components-filterlist · ./src/stories/FilterList/FilterList.stories.tsx</div>
@@ -5473,9 +6231,9 @@ export const ErrorState: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-1-components-filterlist-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-1-components-filterlist-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-1-components-filterlist-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-2-components-filterlist-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-2-components-filterlist-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-2-components-filterlist-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -6539,9 +7297,9 @@ export const CombinedWithObjectTable: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> ObjectTable</h2>
       <div class="badges">
-        <label for="c-error-2-components-objecttable-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-2-components-objecttable-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-2-components-objecttable-stories" class="badge ok as-toggle">20 stories</label>
+        <label for="c-error-3-components-objecttable-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-3-components-objecttable-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-3-components-objecttable-stories" class="badge ok as-toggle">20 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/ObjectTable/ObjectTable.stories.tsx">components-objecttable · ./src/stories/ObjectTable/ObjectTable.stories.tsx</div>
@@ -6551,9 +7309,9 @@ export const CombinedWithObjectTable: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-2-components-objecttable-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-2-components-objecttable-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-2-components-objecttable-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-3-components-objecttable-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-3-components-objecttable-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-3-components-objecttable-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
