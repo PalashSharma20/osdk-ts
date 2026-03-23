@@ -40,7 +40,7 @@
     "@osdk/oauth": "workspace:~",
     "@osdk/react": "workspace:~",
     "@osdk/react-components": "workspace:~",
-    "@osdk/react-components-gotham": "workspace:~",
+    "@osdk/cbac-components": "workspace:~",
     "@osdk/react-components-styles": "workspace:~",
     "maplibre-gl": "^5.7.1",
     "react": "^18.3.1",

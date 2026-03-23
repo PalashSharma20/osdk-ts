@@ -3299,6 +3299,9 @@ importers:
       '@osdk/api':
         specifier: workspace:~
         version: link:../api
+      '@osdk/cbac-components':
+        specifier: workspace:~
+        version: link:../cbac-components
       '@osdk/client':
         specifier: workspace:~
         version: link:../client
@@ -3311,9 +3314,6 @@ importers:
       '@osdk/react-components':
         specifier: workspace:~
         version: link:../react-components
-      '@osdk/react-components-gotham':
-        specifier: workspace:~
-        version: link:../react-components-gotham
       '@osdk/react-components-styles':
         specifier: workspace:~
         version: link:../react-components-styles
@@ -4641,9 +4641,6 @@ importers:
       '@osdk/react-components':
         specifier: workspace:*
         version: link:../react-components
-      '@osdk/react-components-gotham':
-        specifier: workspace:*
-        version: link:../react-components-gotham
       '@osdk/react-components-styles':
         specifier: workspace:*
         version: link:../react-components-styles
