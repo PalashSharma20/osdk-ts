@@ -101,12 +101,6 @@ export interface UseOsdkAggregationResult<
   refetch: () => void;
 }
 
-declare const process: {
-  env: {
-    NODE_ENV: "development" | "production";
-  };
-};
-
 /**
  * React hook for performing aggregations on OSDK object sets.
  *
