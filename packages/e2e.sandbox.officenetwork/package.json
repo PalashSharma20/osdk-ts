@@ -36,11 +36,11 @@
   },
   "dependencies": {
     "@osdk/api": "workspace:~",
+    "@osdk/cbac-components": "workspace:~",
     "@osdk/client": "workspace:~",
     "@osdk/oauth": "workspace:~",
     "@osdk/react": "workspace:~",
     "@osdk/react-components": "workspace:~",
-    "@osdk/cbac-components": "workspace:~",
     "@osdk/react-components-styles": "workspace:~",
     "maplibre-gl": "^5.7.1",
     "react": "^18.3.1",

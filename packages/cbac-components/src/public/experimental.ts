@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-// CBAC Picker - Base components
-export { BaseCbacBanner } from "../cbac-picker/base/BaseCbacBanner.js";
-export { BaseCbacPicker } from "../cbac-picker/base/BaseCbacPicker.js";
-export { BaseCbacPickerDialog } from "../cbac-picker/base/BaseCbacPickerDialog.js";
-
 // CBAC Picker - Selection logic utilities
 export {
   computeMarkingStates,
