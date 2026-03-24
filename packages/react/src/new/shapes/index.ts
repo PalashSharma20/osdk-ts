@@ -20,3 +20,8 @@ export type {
   UseShapeListResult,
   UseShapeResult,
 } from "./useShape.js";
+
+export {
+  useShapeListInternal,
+  useShapeSingleInternal,
+} from "./useShapeInternal.js";
