@@ -19,7 +19,9 @@ import type {
   ActionEditResponse,
   ActionValidationResponse,
   AggregateOpts,
+  Attachment,
   CompileTimeMetadata,
+  Media,
   ObjectOrInterfaceDefinition,
   ObjectSet,
   ObjectTypeDefinition,
@@ -59,6 +61,8 @@ import type {
 } from "../ObservableClient.js";
 import type { Observer } from "../ObservableClient/common.js";
 import type {
+  MediaContentObserveOptions,
+  MediaContentPayload,
   MediaMetadataObserveOptions,
   MediaMetadataPayload,
 } from "../ObservableClient/MediaObservableTypes.js";
@@ -333,6 +337,24 @@ export class ObservableClientImpl implements ObservableClient {
       options,
       observer,
     );
+  }
+
+  public observeMedia(
+    source: Media | Attachment | MediaPropertyLocation,
+    options: MediaContentObserveOptions,
+    observer: Observer<MediaContentPayload>,
+  ): Unsubscribable {
+    return this.__experimentalStore.media.observeMedia(
+      source,
+      options,
+      observer,
+    );
+  }
+
+  public invalidateMedia(
+    source: Media | Attachment | MediaPropertyLocation,
+  ): void {
+    this.__experimentalStore.media.invalidateMedia(source);
   }
 
   public dispose(): void {
