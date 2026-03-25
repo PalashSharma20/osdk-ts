@@ -18,7 +18,6 @@ import type {
   LinkedType,
   LinkNames,
   ObjectOrInterfaceDefinition,
-  ObjectTypeDefinition,
 } from "@osdk/api";
 import type { Osdk, PropertyKeys, WhereClause } from "@osdk/client";
 import type { ObserveLinks } from "@osdk/client/unstable-do-not-use";
@@ -29,6 +28,12 @@ import {
 } from "./devtools-metadata.js";
 import { makeExternalStore } from "./makeExternalStore.js";
 import { OsdkContext2 } from "./OsdkContext2.js";
+
+declare const process: {
+  env: {
+    NODE_ENV: "development" | "production";
+  };
+};
 
 export interface UseLinksOptions<
   T extends ObjectOrInterfaceDefinition,
@@ -190,14 +195,14 @@ export function useLinks<
     };
   }
 
-  React.useEffect(() => {
-    if (objectsArray.length > 0) {
-      observableClient.registerLinkHook?.(
-        [...objectsArray] as Osdk.Instance<ObjectTypeDefinition>[],
-        linkName,
-      );
+  const querySignature = React.useMemo(() => {
+    if (process.env.NODE_ENV !== "production") {
+      return `useLinks:${objectsKey}:${linkName as string}:${
+        JSON.stringify(stableWhere ?? {})
+      }:${JSON.stringify(stableOrderBy ?? {})}`;
     }
-  }, [observableClient, objectsArray, linkName]);
+    return undefined;
+  }, [objectsKey, linkName, stableWhere, stableOrderBy]);
 
   const { subscribe, getSnapShot } = React.useMemo(
     () => {
@@ -220,6 +225,7 @@ export function useLinks<
               mode: otherOptions.mode,
               dedupeInterval: otherOptions.dedupeIntervalMs ?? 2_000,
               ...(stableSelect ? { select: stableSelect } : {}),
+              __devtoolsSignature: querySignature,
             },
             observer,
           ),
@@ -238,6 +244,7 @@ export function useLinks<
       otherOptions.mode,
       otherOptions.dedupeIntervalMs,
       stableSelect,
+      querySignature,
     ],
   );
 

@@ -360,16 +360,6 @@ export function useOsdkObjects<
     ? (override.overrideParams.pageSize as number | undefined) ?? pageSize
     : pageSize;
 
-  React.useEffect(() => {
-    if (process.env.NODE_ENV !== "production") {
-      observableClient.registerListHook?.(type, {
-        where: canonWhere,
-        pageSize,
-        orderBy: stableOrderBy,
-      });
-    }
-  }, [observableClient, type, canonWhere, pageSize, stableOrderBy]);
-
   const { subscribe, getSnapShot } = React.useMemo(
     () => {
       if (!enabled) {

@@ -107,11 +107,15 @@ export interface DevToolsOverrideStore {
   } | undefined;
 }
 
+declare global {
+  interface Window {
+    __OSDK_MONITOR__?: { prototypeOverrideStore?: DevToolsOverrideStore };
+  }
+}
+
 export function getDevToolsOverrideStore(): DevToolsOverrideStore | null {
   if (typeof window === "undefined") {
     return null;
   }
-  return (window as {
-    __OSDK_MONITOR__?: { prototypeOverrideStore?: DevToolsOverrideStore };
-  }).__OSDK_MONITOR__?.prototypeOverrideStore ?? null;
+  return window.__OSDK_MONITOR__?.prototypeOverrideStore ?? null;
 }

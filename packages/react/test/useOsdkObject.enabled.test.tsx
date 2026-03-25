@@ -88,7 +88,7 @@ describe("useOsdkObject enabled option", () => {
     expect(mockObserveObject).toHaveBeenCalledWith(
       "MockObject",
       "instance-123",
-      { mode: "offline" },
+      expect.objectContaining({ mode: "offline" }),
       expect.any(Object),
     );
   });
@@ -104,7 +104,7 @@ describe("useOsdkObject enabled option", () => {
     expect(mockObserveObject).toHaveBeenCalledWith(
       MockObjectType,
       "pk-222",
-      { mode: undefined },
+      expect.objectContaining({ mode: undefined }),
       expect.any(Object),
     );
   });

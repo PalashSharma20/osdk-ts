@@ -42,6 +42,7 @@ import { OBSERVABLE_USER_AGENT } from "../util/UserAgent.js";
 import type { Canonical } from "./internal/Canonical.js";
 import type { ObserveObjectSetOptions } from "./internal/objectset/ObjectSetQueryOptions.js";
 import { ObservableClientImpl } from "./internal/ObservableClientImpl.js";
+import type { OptimisticId } from "./internal/OptimisticId.js";
 import { Store } from "./internal/Store.js";
 import type {
   CommonObserveOptions,
@@ -57,8 +58,8 @@ export namespace ObservableClient {
   export interface ApplyActionOptions {
     optimisticUpdate?: (ctx: OptimisticBuilder) => void;
     __debugListeners?: {
-      onLayerCreated?(id: unknown): void;
-      onLayerCleared?(id: unknown): void;
+      onLayerCreated?(id: OptimisticId): void;
+      onLayerCleared?(id: OptimisticId): void;
       onServerObjectsModified?(
         objects: Array<{
           objectType: string;
@@ -178,8 +179,6 @@ export interface ObserveListOptions<
     where: WhereClause<Q, RDPs>;
   }>;
   pivotTo?: string;
-
-  __devtoolsSignature?: string;
 }
 
 export interface ObserveObjectCallbackArgs<
@@ -261,7 +260,6 @@ export interface ObserveAggregationOptions<
   RDPs extends Record<string, SimplePropertyDef> = {},
 > extends ObserveAggregationBaseOptions<T, A, RDPs> {
   objectSet?: undefined;
-  __devtoolsSignature?: string;
 }
 
 /**
@@ -276,7 +274,6 @@ export interface ObserveAggregationOptionsWithObjectSet<
   RDPs extends Record<string, SimplePropertyDef> = {},
 > extends ObserveAggregationBaseOptions<T, A, RDPs> {
   objectSet: ObjectSet<T>;
-  __devtoolsSignature?: string;
 }
 
 export interface ObserveAggregationArgs<

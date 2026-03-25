@@ -29,6 +29,12 @@ import {
 import { makeExternalStore } from "./makeExternalStore.js";
 import { OsdkContext2 } from "./OsdkContext2.js";
 
+declare const process: {
+  env: {
+    NODE_ENV: "development" | "production";
+  };
+};
+
 export interface UseOsdkObjectResult<
   Q extends ObjectOrInterfaceDefinition,
 > {
@@ -158,9 +164,12 @@ export function useOsdkObject<
     };
   }
 
-  React.useEffect(() => {
-    observableClient.registerObjectHook?.(apiNameString, primaryKey);
-  }, [observableClient, apiNameString, primaryKey]);
+  const querySignature = React.useMemo(() => {
+    if (process.env.NODE_ENV !== "production") {
+      return `useOsdkObject:${apiNameString}:${primaryKey}`;
+    }
+    return undefined;
+  }, [apiNameString, primaryKey]);
 
   const stableSelect = React.useMemo(
     () => selectArg,
@@ -188,6 +197,7 @@ export function useOsdkObject<
                   $loadPropertySecurityMetadata: loadPropertySecurityMetadata,
                 }
                 : {}),
+              __devtoolsSignature: querySignature,
             },
             observer,
           ),
@@ -203,6 +213,7 @@ export function useOsdkObject<
       mode,
       stableSelect,
       loadPropertySecurityMetadata,
+      querySignature,
     ],
   );
 

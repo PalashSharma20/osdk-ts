@@ -19,7 +19,6 @@ import type {
   LinkNames,
   ObjectOrInterfaceDefinition,
   ObjectSet,
-  ObjectTypeDefinition,
   Osdk,
   PropertyKeys,
   SimplePropertyDef,
@@ -229,11 +228,12 @@ export function useObjectSet<
     select: otherOptions.$select,
   });
 
-  React.useEffect(() => {
-    observableClient.registerObjectSetHook?.(
-      baseObjectSet as ObjectSet<ObjectTypeDefinition>,
-    );
-  }, [observableClient, baseObjectSet]);
+  const querySignature = React.useMemo(() => {
+    if (process.env.NODE_ENV !== "production") {
+      return `useObjectSet:${stableKey}`;
+    }
+    return undefined;
+  }, [stableKey]);
 
   const { subscribe, getSnapShot } = React.useMemo(
     () => {
@@ -267,6 +267,7 @@ export function useObjectSet<
               autoFetchMore: otherOptions.autoFetchMore,
               streamUpdates,
               select: otherOptions.$select,
+              __devtoolsSignature: querySignature,
             },
             observer,
           );
@@ -278,7 +279,14 @@ export function useObjectSet<
         initialValue,
       );
     },
-    [enabled, observableClient, stableKey, streamUpdates, objectTypeChanged],
+    [
+      enabled,
+      observableClient,
+      stableKey,
+      streamUpdates,
+      objectTypeChanged,
+      querySignature,
+    ],
   );
 
   const payload = React.useSyncExternalStore(subscribe, getSnapShot);
