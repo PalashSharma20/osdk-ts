@@ -536,10 +536,10 @@ export interface ObservableClient extends ObserveLinks {
   ) => Canonical<WhereClause<T, RDPs>>;
 
   /**
-   * Synchronously check whether the Store has loaded data for a single object.
-   * Read-only: no refcount changes, no fetch triggers, no observation creation.
+   * Synchronously peek at cached data for a single object.
+   * Does not trigger a fetch or create an observation.
    *
-   * @returns The full callback args if the object is loaded, undefined otherwise
+   * @returns The object data if loaded, undefined otherwise
    */
   peekObjectData<T extends ObjectOrInterfaceDefinition>(
     apiName: T["apiName"] | T,
