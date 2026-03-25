@@ -25,6 +25,7 @@ import type {
   DerivedProperty,
   Media,
   MediaMetadata,
+  MediaReference,
   ObjectOrInterfaceDefinition,
   ObjectSet,
   ObjectTypeDefinition,
@@ -607,6 +608,16 @@ export interface ObservableClient extends ObserveLinks {
     clearCache(
       mediaOrCoords: Media | Attachment | MediaPropertyLocation,
     ): void;
+
+    uploadMedia(
+      file: Blob,
+      options: { fileName: string },
+    ): Promise<MediaReference>;
+
+    prefetch(
+      source: Media | Attachment | MediaPropertyLocation,
+      options?: { preview?: boolean },
+    ): Promise<void>;
   };
 
   /**

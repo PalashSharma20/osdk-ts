@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-import type { Attachment, Media, MediaMetadata } from "@osdk/api";
+import type {
+  Attachment,
+  Media,
+  MediaMetadata,
+  MediaReference,
+} from "@osdk/api";
+import { MediaSets } from "@osdk/foundry.mediasets";
 import * as OntologiesV2 from "@osdk/foundry.ontologies";
 import { additionalContext } from "../../../Client.js";
 import type { Observer } from "../../ObservableClient/common.js";
@@ -273,6 +279,51 @@ export class MediaHelper {
     if (observable) {
       observable.invalidate();
     }
+  }
+
+  /**
+   * Upload media to a staging area.
+   */
+  async uploadMedia(
+    file: Blob,
+    options: { fileName: string },
+  ): Promise<MediaReference> {
+    const gatewayMediaRef = await MediaSets.uploadMedia(
+      this.store.client[additionalContext],
+      file,
+      {
+        filename: options.fileName,
+        preview: true,
+      },
+    );
+
+    return {
+      mimeType: gatewayMediaRef.mimeType,
+      reference: {
+        type: "mediaSetViewItem",
+        mediaSetViewItem: {
+          mediaItemRid: gatewayMediaRef.reference.mediaSetViewItem.mediaItemRid,
+          mediaSetRid: gatewayMediaRef.reference.mediaSetViewItem.mediaSetRid,
+          mediaSetViewRid:
+            gatewayMediaRef.reference.mediaSetViewItem.mediaSetViewRid,
+          readToken: gatewayMediaRef.reference.mediaSetViewItem.token,
+        },
+      },
+    };
+  }
+
+  /**
+   * Prefetch media into cache without subscribing.
+   */
+  async prefetch(
+    source: Media | Attachment | MediaPropertyLocation,
+    options?: { preview?: boolean },
+  ): Promise<void> {
+    const preview = options?.preview ?? true;
+    await Promise.all([
+      this.fetchContent(source, { preview }),
+      this.fetchMetadataForSource(source).catch(() => undefined),
+    ]);
   }
 
   private async fetchMetadataForSource(
