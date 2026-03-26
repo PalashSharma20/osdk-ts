@@ -105,7 +105,6 @@ export class ListsHelper extends AbstractHelper<
       pivotTo,
       rids,
       select,
-      $loadPropertySecurityMetadata,
     } = options;
     const { apiName, type } = typeDefinition;
 
@@ -158,6 +157,8 @@ export class ListsHelper extends AbstractHelper<
       canonRids,
       canonSelect,
     } = this.canonicalizeListParams(options);
+
+    const { $loadPropertySecurityMetadata } = options;
 
     const listCacheKey = this.cacheKeys.get<ListCacheKey>(
       "list",
