@@ -509,7 +509,7 @@
 <header>
   <div class="wrap">
     <h1>Components Manifest</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">4/4 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">4/4 infos</a><span class="filter-pill ok" aria-disabled="true">47 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">10/10 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">10/10 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/68 story errors</a></div>
   </div>
 </header>
 <main>
@@ -522,393 +522,14 @@
   has-info 
   no-story-error"
   role="listitem"
-  aria-label="BasePdfViewer">
-  <div class="head">
-    <div class="title">
-      <h2><span class="status-dot dot-err"></span> BasePdfViewer</h2>
-      <div class="badges">
-        <label for="c-0-components-pdfviewer-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-0-components-pdfviewer-info" class="badge info as-toggle">1 info</label>
-        <label for="c-0-components-pdfviewer-stories" class="badge ok as-toggle">6 stories</label>
-      </div>
-    </div>
-    <div class="meta" title="./src/stories/PdfViewer/PdfViewer.stories.tsx">components-pdfviewer · ./src/stories/PdfViewer/PdfViewer.stories.tsx</div>
-    
-    
-    
-  </div>
-
-  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-0-components-pdfviewer-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-0-components-pdfviewer-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-0-components-pdfviewer-stories" class="tg tg-stories" type="checkbox" hidden />
-  
-
-  <div class="panels">
-    
-        <div class="panel panel-err">
-          
-    <div class="note err">
-      <div class="note-title">Prop type error</div>
-      <div class="note-body"><pre><code>No component file found for the &quot;BasePdfViewer&quot; component.
-  23 |   &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
-  24 |
-&gt; 25 | const meta: Meta&lt;PdfViewerProps&gt; = {
-     | ^
-  26 |   title: &quot;Components/PdfViewer&quot;,
-  27 |   component: BasePdfViewer,
-  28 |   args: {
-
-./src/stories/PdfViewer/PdfViewer.stories.tsx:
-/*
- * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-import type { PdfViewerProps } from &quot;@osdk/react-components/experimental&quot;;
-import { BasePdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
-import { delay, http } from &quot;msw&quot;;
-import { fn } from &quot;storybook/test&quot;;
-const SAMPLE_PDF_URL =
-  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
-
-const meta: Meta&lt;PdfViewerProps&gt; = {
-  title: &quot;Components/PdfViewer&quot;,
-  component: BasePdfViewer,
-  args: {
-    src: SAMPLE_PDF_URL,
-  },
-  render: (args: PdfViewerProps) =&gt; (
-    &lt;div style={{ height: &quot;600px&quot; }}&gt;
-      &lt;BasePdfViewer {...args} /&gt;
-    &lt;/div&gt;
-  ),
-  parameters: {
-    controls: {
-      expanded: true,
-    },
-  },
-  argTypes: {
-    src: {
-      description: &quot;PDF source — URL string or ArrayBuffer&quot;,
-      control: &quot;text&quot;,
-    },
-    annotations: {
-      description:
-        &quot;Annotations to overlay on the PDF, keyed by page number (1-indexed)&quot;,
-      control: &quot;object&quot;,
-    },
-    onAnnotationClick: {
-      description: &quot;Callback fired when an annotation is clicked&quot;,
-      control: false,
-      table: { category: &quot;Events&quot; },
-    },
-    initialPage: {
-      description: &quot;Page to display on first render (1-indexed)&quot;,
-      control: &quot;number&quot;,
-      table: { defaultValue: { summary: &quot;1&quot; } },
-    },
-    initialScale: {
-      description: &quot;Initial zoom scale&quot;,
-      control: &quot;number&quot;,
-      table: { defaultValue: { summary: &quot;1.0&quot; } },
-    },
-    initialSidebarOpen: {
-      description: &quot;Whether the thumbnail sidebar is initially open&quot;,
-      control: &quot;boolean&quot;,
-      table: { defaultValue: { summary: &quot;false&quot; } },
-    },
-    className: {
-      description: &quot;Additional CSS class name for the root element&quot;,
-      control: &quot;text&quot;,
-    },
-  },
-};
-
-export default meta;
-type Story = StoryObj&lt;typeof meta&gt;;
-
-export const Default: Story = {
-  parameters: {
-    docs: {
-      source: {
-        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-
-&lt;PdfViewer src=&quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot; /&gt;`,
-      },
-    },
-  },
-};
-
-export const WithAnnotations: Story = {
-  args: {
-    onAnnotationClick: fn(),
-    annotations: {
-      1: [
-        {
-          id: &quot;h1&quot;,
-          type: &quot;highlight&quot;,
-          page: 1,
-          rect: { x: 100, y: 700, width: 200, height: 20 },
-          label: &quot;Important text&quot;,
-        },
-        {
-          id: &quot;u1&quot;,
-          type: &quot;underline&quot;,
-          page: 1,
-          rect: { x: 100, y: 650, width: 150, height: 2 },
-        },
-        {
-          id: &quot;c1&quot;,
-          type: &quot;comment&quot;,
-          page: 1,
-          rect: { x: 400, y: 600, width: 24, height: 24 },
-          label: &quot;Review this section&quot;,
-        },
-        {
-          id: &quot;p1&quot;,
-          type: &quot;pin&quot;,
-          page: 1,
-          rect: { x: 300, y: 500, width: 16, height: 16 },
-          label: &quot;Pin marker&quot;,
-        },
-      ],
-    },
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-
-&lt;PdfViewer
-  src=&quot;...&quot;
-  annotations={{
-    1: [
-      { id: &quot;h1&quot;, type: &quot;highlight&quot;, page: 1, rect: { x: 100, y: 700, width: 200, height: 20 }, label: &quot;Important text&quot; },
-      { id: &quot;u1&quot;, type: &quot;underline&quot;, page: 1, rect: { x: 100, y: 650, width: 150, height: 2 } },
-      { id: &quot;c1&quot;, type: &quot;comment&quot;, page: 1, rect: { x: 400, y: 600, width: 24, height: 24 }, label: &quot;Review this&quot; },
-      { id: &quot;p1&quot;, type: &quot;pin&quot;, page: 1, rect: { x: 300, y: 500, width: 16, height: 16 }, label: &quot;Pin&quot; },
-    ],
-  }}
-  onAnnotationClick={(annotation) =&gt; handleAnnotationClick(annotation)}
-/&gt;`,
-      },
-    },
-  },
-};
-
-export const WithSidebar: Story = {
-  args: {
-    initialSidebarOpen: true,
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-
-&lt;PdfViewer src=&quot;...&quot; initialSidebarOpen /&gt;`,
-      },
-    },
-  },
-};
-
-export const CustomScale: Story = {
-  args: {
-    initialScale: 1.5,
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-
-&lt;PdfViewer src=&quot;...&quot; initialScale={1.5} /&gt;`,
-      },
-    },
-  },
-};
-
-export const Loading: Story = {
-  args: {
-    src: &quot;/loading.pdf&quot;,
-  },
-  parameters: {
-    msw: {
-      handlers: [
-        http.get(&quot;/loading.pdf&quot;, async () =&gt; {
-          await delay(&quot;infinite&quot;);
-        }),
-      ],
-    },
-  },
-};
-
-export const Error: Story = {
-  args: {
-    src: &quot;/error.pdf&quot;,
-  },
-  parameters: {
-    msw: {
-      handlers: [
-        http.get(&quot;/error.pdf&quot;, () =&gt; {
-          return new Response(&quot;Server Error&quot;, { status: 500 });
-        }),
-      ],
-    },
-  },
-};
-</code></pre></div>
-    </div>
-        </div>
-    
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
-    
-    
-        <div class="panel panel-stories">
-          
-          
-          
-          <div class="note ok">
-                <div class="row">
-                  <span class="ex-name">Imports</span>
-                </div>
-                <pre><code>import { BasePdfViewer } from "@osdk/react-components-storybook";</code></pre>
-              </div>
-          
-          
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Default</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Default = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src={SAMPLE_PDF_URL} /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">With Annotations</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const WithAnnotations = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer
-        src={SAMPLE_PDF_URL}
-        onAnnotationClick={fn()}
-        annotations={{
-          1: [
-            {
-              id: &quot;h1&quot;,
-              type: &quot;highlight&quot;,
-              page: 1,
-              rect: { x: 100, y: 700, width: 200, height: 20 },
-              label: &quot;Important text&quot;,
-            },
-            {
-              id: &quot;u1&quot;,
-              type: &quot;underline&quot;,
-              page: 1,
-              rect: { x: 100, y: 650, width: 150, height: 2 },
-            },
-            {
-              id: &quot;c1&quot;,
-              type: &quot;comment&quot;,
-              page: 1,
-              rect: { x: 400, y: 600, width: 24, height: 24 },
-              label: &quot;Review this section&quot;,
-            },
-            {
-              id: &quot;p1&quot;,
-              type: &quot;pin&quot;,
-              page: 1,
-              rect: { x: 300, y: 500, width: 16, height: 16 },
-              label: &quot;Pin marker&quot;,
-            },
-          ],
-        }} /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">With Sidebar</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const WithSidebar = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src={SAMPLE_PDF_URL} initialSidebarOpen /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Custom Scale</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const CustomScale = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src={SAMPLE_PDF_URL} initialScale={1.5} /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Loading</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Loading = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src=&quot;/loading.pdf&quot; /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Error</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Error = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src=&quot;/error.pdf&quot; /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-        </div>
-  </div>
-</article>
-<article
-  class="card 
-  has-error 
-  has-info 
-  no-story-error"
-  role="listitem"
   aria-label="BaseTable">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-err"></span> BaseTable</h2>
       <div class="badges">
-        <label for="c-1-components-basetable-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-1-components-basetable-info" class="badge info as-toggle">1 info</label>
-        <label for="c-1-components-basetable-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-0-components-basetable-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-0-components-basetable-info" class="badge info as-toggle">1 info</label>
+        <label for="c-0-components-basetable-stories" class="badge ok as-toggle">8 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/BaseTable/BaseTable.stories.tsx">components-basetable · ./src/stories/BaseTable/BaseTable.stories.tsx</div>
@@ -918,9 +539,9 @@ export const Error: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-1-components-basetable-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-1-components-basetable-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-1-components-basetable-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-0-components-basetable-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-0-components-basetable-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-0-components-basetable-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -1815,9 +1436,9 @@ export const ErrorState: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> FilterList</h2>
       <div class="badges">
-        <label for="c-2-components-filterlist-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-2-components-filterlist-info" class="badge info as-toggle">1 info</label>
-        <label for="c-2-components-filterlist-stories" class="badge ok as-toggle">13 stories</label>
+        <label for="c-1-components-filterlist-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-1-components-filterlist-info" class="badge info as-toggle">1 info</label>
+        <label for="c-1-components-filterlist-stories" class="badge ok as-toggle">13 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/FilterList/FilterList.stories.tsx">components-filterlist · ./src/stories/FilterList/FilterList.stories.tsx</div>
@@ -1827,9 +1448,9 @@ export const ErrorState: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-2-components-filterlist-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-2-components-filterlist-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-2-components-filterlist-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-1-components-filterlist-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-1-components-filterlist-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-1-components-filterlist-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -2893,9 +2514,9 @@ export const CombinedWithObjectTable: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> ObjectTable</h2>
       <div class="badges">
-        <label for="c-3-components-objecttable-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-3-components-objecttable-info" class="badge info as-toggle">1 info</label>
-        <label for="c-3-components-objecttable-stories" class="badge ok as-toggle">20 stories</label>
+        <label for="c-2-components-objecttable-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-2-components-objecttable-info" class="badge info as-toggle">1 info</label>
+        <label for="c-2-components-objecttable-stories" class="badge ok as-toggle">20 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/ObjectTable/ObjectTable.stories.tsx">components-objecttable · ./src/stories/ObjectTable/ObjectTable.stories.tsx</div>
@@ -2905,9 +2526,9 @@ export const CombinedWithObjectTable: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-3-components-objecttable-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-3-components-objecttable-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-3-components-objecttable-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-2-components-objecttable-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-2-components-objecttable-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-2-components-objecttable-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -4907,6 +4528,1900 @@ return (
         objectType={Employee} /&gt;
 &lt;/div&gt;;</code></pre>
             </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewer">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewer</h2>
+      <div class="badges">
+        <label for="c-3-components-pdfviewer-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-3-components-pdfviewer-info" class="badge info as-toggle">1 info</label>
+        <label for="c-3-components-pdfviewer-stories" class="badge ok as-toggle">10 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/PdfViewer.stories.tsx">components-pdfviewer · ./src/stories/PdfViewer/PdfViewer.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-3-components-pdfviewer-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-3-components-pdfviewer-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-3-components-pdfviewer-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewer&quot; component.
+  68 | );
+  69 |
+&gt; 70 | const meta: Meta&lt;PdfViewerMediaProps&gt; = {
+     | ^
+  71 |   title: &quot;Components/PdfViewer&quot;,
+  72 |   component: PdfViewer,
+  73 |   args: {
+
+./src/stories/PdfViewer/PdfViewer.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* cspell:disable */
+
+import type { Media } from &quot;@osdk/api&quot;;
+import type {
+  PdfViewerMediaProps,
+  PdfViewerProps,
+} from &quot;@osdk/react-components/experimental&quot;;
+import { BasePdfViewer, PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+import { useOsdkObject } from &quot;@osdk/react/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { delay, http } from &quot;msw&quot;;
+import { fn } from &quot;storybook/test&quot;;
+import { MEDIA_EMPLOYEE_PK } from &quot;../../mocks/fauxFoundry.js&quot;;
+import { Employee } from &quot;../../types/Employee.js&quot;;
+
+const SAMPLE_PDF_URL =
+  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+
+const BOOKMARKED_PDF_URL =
+  &quot;https://raw.githubusercontent.com/mozilla/pdf.js/master/test/pdfs/nested_outline.pdf&quot;;
+
+function createMockMedia(url: string, filename: string): Media {
+  return {
+    fetchContents: () =&gt; fetch(url),
+    fetchMetadata: () =&gt;
+      Promise.resolve({
+        path: filename,
+        sizeBytes: 1024000,
+        mediaType: &quot;application/pdf&quot;,
+      }),
+    getMediaReference: () =&gt; ({
+      mimeType: &quot;application/pdf&quot;,
+      reference: {
+        type: &quot;mediaSetViewItem&quot; as const,
+        mediaSetViewItem: {
+          mediaItemRid: &quot;ri.mio.main.media-item.mock-pdf&quot;,
+          mediaSetRid: &quot;ri.mio.main.media-set.mock-set&quot;,
+          mediaSetViewRid: &quot;ri.mio.main.media-set-view.mock-view&quot;,
+        },
+      },
+    }),
+  };
+}
+
+const mockMedia = createMockMedia(
+  SAMPLE_PDF_URL,
+  &quot;compressed.tracemonkey-pldi-09.pdf&quot;,
+);
+const mockBookmarkedMedia = createMockMedia(
+  BOOKMARKED_PDF_URL,
+  &quot;pdf-example-bookmarks.pdf&quot;,
+);
+
+const meta: Meta&lt;PdfViewerMediaProps&gt; = {
+  title: &quot;Components/PdfViewer&quot;,
+  component: PdfViewer,
+  args: {
+    media: mockMedia,
+  },
+  render: (args: PdfViewerMediaProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;PdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    controls: {
+      expanded: true,
+    },
+  },
+  argTypes: {
+    media: {
+      description: &quot;The Media object to fetch PDF contents from&quot;,
+      control: false,
+    },
+    annotations: {
+      description:
+        &quot;Annotations to overlay on the PDF, keyed by page number (1-indexed)&quot;,
+      control: &quot;object&quot;,
+    },
+    onAnnotationClick: {
+      description: &quot;Callback fired when an annotation is clicked&quot;,
+      control: false,
+      table: { category: &quot;Events&quot; },
+    },
+    initialPage: {
+      description: &quot;Page to display on first render (1-indexed)&quot;,
+      control: &quot;number&quot;,
+      table: { defaultValue: { summary: &quot;1&quot; } },
+    },
+    initialScale: {
+      description: &quot;Initial zoom scale&quot;,
+      control: &quot;number&quot;,
+      table: { defaultValue: { summary: &quot;1.0&quot; } },
+    },
+    initialSidebarOpen: {
+      description: &quot;Whether the thumbnail sidebar is initially open&quot;,
+      control: &quot;boolean&quot;,
+      table: { defaultValue: { summary: &quot;false&quot; } },
+    },
+    enableDownload: {
+      description: &quot;Whether the download button is shown in the toolbar&quot;,
+      control: &quot;boolean&quot;,
+      table: { defaultValue: { summary: &quot;false&quot; } },
+    },
+    sidebarMode: {
+      description: &quot;Which sidebar panel to show when the sidebar is open&quot;,
+      control: &quot;radio&quot;,
+      options: [&quot;thumbnails&quot;, &quot;outline&quot;],
+      table: { defaultValue: { summary: &quot;\&quot;thumbnails\&quot;&quot; } },
+    },
+    outlineIcons: {
+      description:
+        &quot;Custom icon components for each outline depth level (0-indexed)&quot;,
+      control: false,
+    },
+    className: {
+      description: &quot;Additional CSS class name for the root element&quot;,
+      control: &quot;text&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const WithOsdkMedia: Story = {
+  render: () =&gt; {
+    const { object: employee, isLoading } = useOsdkObject(
+      Employee,
+      MEDIA_EMPLOYEE_PK,
+    );
+
+    if (isLoading || !employee?.employeeDocuments) {
+      return &lt;div style={{ height: &quot;600px&quot; }}&gt;Loading OSDK media…&lt;/div&gt;;
+    }
+
+    return (
+      &lt;div style={{ height: &quot;600px&quot; }}&gt;
+        &lt;PdfViewer media={employee.employeeDocuments} /&gt;
+      &lt;/div&gt;
+    );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+// Access media from an OSDK object&#39;s media reference property
+const employee = useOsdkObject(Employee, employeePk);
+&lt;PdfViewer media={employee.employeeDocuments} /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithPdfUrl: StoryObj&lt;PdfViewerProps&gt; = {
+  args: {
+    src: SAMPLE_PDF_URL,
+  },
+  render: (args: PdfViewerProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;BasePdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code:
+          `import { BasePdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;BasePdfViewer src=&quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot; /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithAnnotations: Story = {
+  args: {
+    onAnnotationClick: fn(),
+    annotations: {
+      1: [
+        {
+          id: &quot;h1&quot;,
+          type: &quot;highlight&quot;,
+          page: 1,
+          rect: { x: 100, y: 700, width: 200, height: 20 },
+          label: &quot;Important text&quot;,
+        },
+        {
+          id: &quot;u1&quot;,
+          type: &quot;underline&quot;,
+          page: 1,
+          rect: { x: 100, y: 650, width: 150, height: 2 },
+        },
+        {
+          id: &quot;c1&quot;,
+          type: &quot;comment&quot;,
+          page: 1,
+          rect: { x: 400, y: 600, width: 24, height: 24 },
+          label: &quot;Review this section&quot;,
+        },
+        {
+          id: &quot;p1&quot;,
+          type: &quot;pin&quot;,
+          page: 1,
+          rect: { x: 300, y: 500, width: 16, height: 16 },
+          label: &quot;Pin marker&quot;,
+        },
+      ],
+    },
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer
+  media={myMediaObject}
+  annotations={{
+    1: [
+      { id: &quot;h1&quot;, type: &quot;highlight&quot;, page: 1, rect: { x: 100, y: 700, width: 200, height: 20 }, label: &quot;Important text&quot; },
+      { id: &quot;u1&quot;, type: &quot;underline&quot;, page: 1, rect: { x: 100, y: 650, width: 150, height: 2 } },
+      { id: &quot;c1&quot;, type: &quot;comment&quot;, page: 1, rect: { x: 400, y: 600, width: 24, height: 24 }, label: &quot;Review this&quot; },
+      { id: &quot;p1&quot;, type: &quot;pin&quot;, page: 1, rect: { x: 300, y: 500, width: 16, height: 16 }, label: &quot;Pin&quot; },
+    ],
+  }}
+  onAnnotationClick={(annotation) =&gt; handleAnnotationClick(annotation)}
+/&gt;`,
+      },
+    },
+  },
+};
+
+export const WithSidebar: Story = {
+  args: {
+    initialSidebarOpen: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer media={myMediaObject} initialSidebarOpen /&gt;`,
+      },
+    },
+  },
+};
+
+export const CustomScale: Story = {
+  args: {
+    initialScale: 1.5,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer media={myMediaObject} initialScale={1.5} /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithDownload: Story = {
+  args: {
+    enableDownload: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer media={myMediaObject} enableDownload /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithOutlineSidebar: Story = {
+  args: {
+    initialSidebarOpen: true,
+    sidebarMode: &quot;outline&quot;,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer media={myMediaObject} initialSidebarOpen sidebarMode=&quot;outline&quot; /&gt;`,
+      },
+    },
+  },
+};
+
+export const Loading: StoryObj&lt;PdfViewerProps&gt; = {
+  args: {
+    src: &quot;/loading.pdf&quot;,
+  },
+  render: (args: PdfViewerProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;BasePdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(&quot;/loading.pdf&quot;, async () =&gt; {
+          await delay(&quot;infinite&quot;);
+        }),
+      ],
+    },
+  },
+};
+
+export const Error: StoryObj&lt;PdfViewerProps&gt; = {
+  args: {
+    src: &quot;/error.pdf&quot;,
+  },
+  render: (args: PdfViewerProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;BasePdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(&quot;/error.pdf&quot;, () =&gt; {
+          return new Response(&quot;Server Error&quot;, { status: 500 });
+        }),
+      ],
+    },
+  },
+};
+
+export const WithEmbeddedOutline: Story = {
+  args: {
+    media: mockBookmarkedMedia,
+    initialSidebarOpen: true,
+    sidebarMode: &quot;outline&quot;,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { BasePdfViewer, PdfViewer } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Osdk Media</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithOsdkMedia = () =&gt; {
+  const { object: employee, isLoading } = useOsdkObject(
+    Employee,
+    MEDIA_EMPLOYEE_PK,
+  );
+
+  if (isLoading || !employee?.employeeDocuments) {
+    return &lt;div style={{ height: &quot;600px&quot; }}&gt;Loading OSDK media…&lt;/div&gt;;
+  }
+
+  return (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;PdfViewer media={employee.employeeDocuments} /&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Pdf Url</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithPdfUrl = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer media={mockMedia} src={SAMPLE_PDF_URL} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Annotations</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithAnnotations = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer
+        media={mockMedia}
+        onAnnotationClick={fn()}
+        annotations={{
+          1: [
+            {
+              id: &quot;h1&quot;,
+              type: &quot;highlight&quot;,
+              page: 1,
+              rect: { x: 100, y: 700, width: 200, height: 20 },
+              label: &quot;Important text&quot;,
+            },
+            {
+              id: &quot;u1&quot;,
+              type: &quot;underline&quot;,
+              page: 1,
+              rect: { x: 100, y: 650, width: 150, height: 2 },
+            },
+            {
+              id: &quot;c1&quot;,
+              type: &quot;comment&quot;,
+              page: 1,
+              rect: { x: 400, y: 600, width: 24, height: 24 },
+              label: &quot;Review this section&quot;,
+            },
+            {
+              id: &quot;p1&quot;,
+              type: &quot;pin&quot;,
+              page: 1,
+              rect: { x: 300, y: 500, width: 16, height: 16 },
+              label: &quot;Pin marker&quot;,
+            },
+          ],
+        }} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Sidebar</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithSidebar = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockMedia} initialSidebarOpen /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Custom Scale</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CustomScale = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockMedia} initialScale={1.5} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Download</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithDownload = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockMedia} enableDownload /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Outline Sidebar</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithOutlineSidebar = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockMedia} initialSidebarOpen sidebarMode=&quot;outline&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Loading</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Loading = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer media={mockMedia} src=&quot;/loading.pdf&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Error</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Error = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer media={mockMedia} src=&quot;/error.pdf&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Embedded Outline</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithEmbeddedOutline = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockBookmarkedMedia} initialSidebarOpen sidebarMode=&quot;outline&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerAnnotationLayer">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerAnnotationLayer</h2>
+      <div class="badges">
+        <label for="c-4-components-pdfviewer-building-blocks-annotationlayer-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-4-components-pdfviewer-building-blocks-annotationlayer-info" class="badge info as-toggle">1 info</label>
+        <label for="c-4-components-pdfviewer-building-blocks-annotationlayer-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/AnnotationLayer.stories.tsx">components-pdfviewer-building-blocks-annotationlayer · ./src/stories/PdfViewer/AnnotationLayer.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-4-components-pdfviewer-building-blocks-annotationlayer-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-4-components-pdfviewer-building-blocks-annotationlayer-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-4-components-pdfviewer-building-blocks-annotationlayer-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerAnnotationLayer&quot; component.
+  53 | ];
+  54 |
+&gt; 55 | const meta: Meta&lt;PdfViewerAnnotationLayerProps&gt; = {
+     | ^
+  56 |   title: &quot;Components/PdfViewer/Building Blocks/AnnotationLayer&quot;,
+  57 |   component: PdfViewerAnnotationLayer,
+  58 |   args: {
+
+./src/stories/PdfViewer/AnnotationLayer.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type {
+  PdfAnnotation,
+  PdfViewerAnnotationLayerProps,
+} from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerAnnotationLayer } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const MIXED_ANNOTATIONS: PdfAnnotation[] = [
+  {
+    id: &quot;h1&quot;,
+    type: &quot;highlight&quot;,
+    page: 1,
+    rect: { x: 50, y: 700, width: 300, height: 20 },
+    label: &quot;Highlighted text&quot;,
+  },
+  {
+    id: &quot;u1&quot;,
+    type: &quot;underline&quot;,
+    page: 1,
+    rect: { x: 50, y: 650, width: 200, height: 2 },
+  },
+  {
+    id: &quot;c1&quot;,
+    type: &quot;comment&quot;,
+    page: 1,
+    rect: { x: 400, y: 600, width: 24, height: 24 },
+    label: &quot;Review this section&quot;,
+  },
+  {
+    id: &quot;p1&quot;,
+    type: &quot;pin&quot;,
+    page: 1,
+    rect: { x: 300, y: 500, width: 16, height: 16 },
+    label: &quot;Pin marker&quot;,
+  },
+];
+
+const meta: Meta&lt;PdfViewerAnnotationLayerProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/AnnotationLayer&quot;,
+  component: PdfViewerAnnotationLayer,
+  args: {
+    annotations: MIXED_ANNOTATIONS,
+    pageHeight: 792,
+    scale: 1.0,
+    onAnnotationClick: fn(),
+  },
+  render: (args: PdfViewerAnnotationLayerProps) =&gt; (
+    &lt;div
+      style={{
+        position: &quot;relative&quot;,
+        width: `${612 * args.scale}px`,
+        height: `${args.pageHeight * args.scale}px`,
+        border: &quot;1px solid #ccc&quot;,
+        background: &quot;#fff&quot;,
+      }}
+    &gt;
+      &lt;PdfViewerAnnotationLayer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  argTypes: {
+    pageHeight: {
+      description:
+        &quot;Height of the PDF page in PDF units (used for coordinate conversion)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    scale: {
+      description: &quot;Current zoom scale&quot;,
+      control: { type: &quot;number&quot;, min: 0.25, max: 5, step: 0.25 },
+    },
+    annotations: {
+      description: &quot;Array of annotations to render on the page&quot;,
+      control: &quot;object&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const HighlightsOnly: Story = {
+  args: {
+    annotations: [
+      {
+        id: &quot;h1&quot;,
+        type: &quot;highlight&quot;,
+        page: 1,
+        rect: { x: 50, y: 700, width: 300, height: 20 },
+        label: &quot;First highlight&quot;,
+      },
+      {
+        id: &quot;h2&quot;,
+        type: &quot;highlight&quot;,
+        page: 1,
+        rect: { x: 50, y: 650, width: 250, height: 20 },
+        label: &quot;Second highlight&quot;,
+      },
+      {
+        id: &quot;h3&quot;,
+        type: &quot;highlight&quot;,
+        page: 1,
+        rect: { x: 50, y: 600, width: 350, height: 20 },
+        label: &quot;Third highlight&quot;,
+        color: &quot;#4caf50&quot;,
+      },
+    ],
+  },
+};
+
+export const ZoomedIn: Story = {
+  args: {
+    scale: 2.0,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerAnnotationLayer } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;div
+    style={{
+      position: &quot;relative&quot;,
+      width: `${612 * args.scale}px`,
+      height: `${args.pageHeight * args.scale}px`,
+      border: &quot;1px solid #ccc&quot;,
+      background: &quot;#fff&quot;,
+    }}&gt;
+    &lt;PdfViewerAnnotationLayer
+        annotations={MIXED_ANNOTATIONS}
+        pageHeight={792}
+        scale={1.0}
+        onAnnotationClick={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Highlights Only</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const HighlightsOnly = () =&gt; &lt;div
+    style={{
+      position: &quot;relative&quot;,
+      width: `${612 * args.scale}px`,
+      height: `${args.pageHeight * args.scale}px`,
+      border: &quot;1px solid #ccc&quot;,
+      background: &quot;#fff&quot;,
+    }}&gt;
+    &lt;PdfViewerAnnotationLayer
+        annotations={[
+          {
+            id: &quot;h1&quot;,
+            type: &quot;highlight&quot;,
+            page: 1,
+            rect: { x: 50, y: 700, width: 300, height: 20 },
+            label: &quot;First highlight&quot;,
+          },
+          {
+            id: &quot;h2&quot;,
+            type: &quot;highlight&quot;,
+            page: 1,
+            rect: { x: 50, y: 650, width: 250, height: 20 },
+            label: &quot;Second highlight&quot;,
+          },
+          {
+            id: &quot;h3&quot;,
+            type: &quot;highlight&quot;,
+            page: 1,
+            rect: { x: 50, y: 600, width: 350, height: 20 },
+            label: &quot;Third highlight&quot;,
+            color: &quot;#4caf50&quot;,
+          },
+        ]}
+        pageHeight={792}
+        scale={1.0}
+        onAnnotationClick={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Zoomed In</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ZoomedIn = () =&gt; &lt;div
+    style={{
+      position: &quot;relative&quot;,
+      width: `${612 * args.scale}px`,
+      height: `${args.pageHeight * args.scale}px`,
+      border: &quot;1px solid #ccc&quot;,
+      background: &quot;#fff&quot;,
+    }}&gt;
+    &lt;PdfViewerAnnotationLayer
+        annotations={MIXED_ANNOTATIONS}
+        pageHeight={792}
+        scale={2.0}
+        onAnnotationClick={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerContent">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerContent</h2>
+      <div class="badges">
+        <label for="c-5-components-pdfviewer-building-blocks-content-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-5-components-pdfviewer-building-blocks-content-info" class="badge info as-toggle">1 info</label>
+        <label for="c-5-components-pdfviewer-building-blocks-content-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/Content.stories.tsx">components-pdfviewer-building-blocks-content · ./src/stories/PdfViewer/Content.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-5-components-pdfviewer-building-blocks-content-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-5-components-pdfviewer-building-blocks-content-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-5-components-pdfviewer-building-blocks-content-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerContent&quot; component.
+  24 |   &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+  25 |
+&gt; 26 | const meta: Meta&lt;PdfViewerContentProps&gt; = {
+     | ^
+  27 |   title: &quot;Components/PdfViewer/Building Blocks/Content&quot;,
+  28 |   component: PdfViewerContent,
+  29 |   args: {
+
+./src/stories/PdfViewer/Content.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type { PdfViewerContentProps } from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerContent } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+// cspell:disable-next-line
+const SAMPLE_PDF_URL =
+  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+
+const meta: Meta&lt;PdfViewerContentProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/Content&quot;,
+  component: PdfViewerContent,
+  args: {
+    src: SAMPLE_PDF_URL,
+    onPageChange: fn(),
+    onScaleChange: fn(),
+  },
+  render: (args: PdfViewerContentProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;PdfViewerContent {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  argTypes: {
+    src: {
+      description: &quot;PDF source — URL string or ArrayBuffer&quot;,
+      control: false,
+    },
+    initialPage: {
+      description: &quot;Initial page number (1-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    initialScale: {
+      description: &quot;Initial zoom scale&quot;,
+      control: { type: &quot;number&quot;, min: 0.25, max: 5, step: 0.25 },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const ZoomedIn: Story = {
+  args: {
+    initialScale: 2.0,
+  },
+};
+
+export const StartOnPage5: Story = {
+  args: {
+    initialPage: 5,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerContent } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewerContent src={SAMPLE_PDF_URL} onPageChange={fn()} onScaleChange={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Zoomed In</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ZoomedIn = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewerContent
+        src={SAMPLE_PDF_URL}
+        onPageChange={fn()}
+        onScaleChange={fn()}
+        initialScale={2.0} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Start On Page 5</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const StartOnPage5 = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewerContent
+        src={SAMPLE_PDF_URL}
+        onPageChange={fn()}
+        onScaleChange={fn()}
+        initialPage={5} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerOutlineSidebar">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerOutlineSidebar</h2>
+      <div class="badges">
+        <label for="c-6-components-pdfviewer-building-blocks-outlinesidebar-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-6-components-pdfviewer-building-blocks-outlinesidebar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-6-components-pdfviewer-building-blocks-outlinesidebar-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/OutlineSidebar.stories.tsx">components-pdfviewer-building-blocks-outlinesidebar · ./src/stories/PdfViewer/OutlineSidebar.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-6-components-pdfviewer-building-blocks-outlinesidebar-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-6-components-pdfviewer-building-blocks-outlinesidebar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-6-components-pdfviewer-building-blocks-outlinesidebar-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerOutlineSidebar&quot; component.
+  78 | ];
+  79 |
+&gt; 80 | const meta: Meta&lt;PdfViewerOutlineSidebarProps&gt; = {
+     | ^
+  81 |   title: &quot;Components/PdfViewer/Building Blocks/OutlineSidebar&quot;,
+  82 |   component: PdfViewerOutlineSidebar,
+  83 |   args: {
+
+./src/stories/PdfViewer/OutlineSidebar.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type {
+  OutlineItem,
+  PdfViewerOutlineSidebarProps,
+} from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerOutlineSidebar } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const SAMPLE_OUTLINE: OutlineItem[] = [
+  { title: &quot;Introduction&quot;, depth: 0, pageNumber: 1, bold: true, italic: false },
+  {
+    title: &quot;Background&quot;,
+    depth: 1,
+    pageNumber: 2,
+    bold: false,
+    italic: false,
+  },
+  {
+    title: &quot;Motivation&quot;,
+    depth: 1,
+    pageNumber: 3,
+    bold: false,
+    italic: false,
+  },
+  {
+    title: &quot;Architecture&quot;,
+    depth: 0,
+    pageNumber: 4,
+    bold: true,
+    italic: false,
+  },
+  {
+    title: &quot;System Overview&quot;,
+    depth: 1,
+    pageNumber: 5,
+    bold: false,
+    italic: false,
+  },
+  {
+    title: &quot;Component Design&quot;,
+    depth: 1,
+    pageNumber: 6,
+    bold: false,
+    italic: false,
+  },
+  {
+    title: &quot;Data Flow&quot;,
+    depth: 2,
+    pageNumber: 7,
+    bold: false,
+    italic: true,
+  },
+  {
+    title: &quot;Implementation&quot;,
+    depth: 0,
+    pageNumber: 8,
+    bold: true,
+    italic: false,
+  },
+  { title: &quot;Results&quot;, depth: 0, pageNumber: 10, bold: true, italic: false },
+  { title: &quot;Conclusion&quot;, depth: 0, pageNumber: 12, bold: true, italic: false },
+];
+
+const meta: Meta&lt;PdfViewerOutlineSidebarProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/OutlineSidebar&quot;,
+  component: PdfViewerOutlineSidebar,
+  args: {
+    outlineItems: SAMPLE_OUTLINE,
+    currentPage: 1,
+    onItemClick: fn(),
+    sidebarMode: &quot;outline&quot;,
+    onSidebarModeChange: fn(),
+  },
+  render: (args: PdfViewerOutlineSidebarProps) =&gt; (
+    &lt;div style={{ height: &quot;400px&quot;, width: &quot;240px&quot; }}&gt;
+      &lt;PdfViewerOutlineSidebar {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  argTypes: {
+    currentPage: {
+      description: &quot;Currently active page number (1-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    outlineItems: {
+      description: &quot;Array of outline items to display&quot;,
+      control: &quot;object&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const ActiveSection: Story = {
+  args: {
+    currentPage: 6,
+  },
+};
+
+export const Empty: Story = {
+  args: {
+    outlineItems: [],
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerOutlineSidebar } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;div style={{ height: &quot;400px&quot;, width: &quot;240px&quot; }}&gt;
+    &lt;PdfViewerOutlineSidebar
+        outlineItems={SAMPLE_OUTLINE}
+        currentPage={1}
+        onItemClick={fn()}
+        sidebarMode=&quot;outline&quot;
+        onSidebarModeChange={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Active Section</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ActiveSection = () =&gt; &lt;div style={{ height: &quot;400px&quot;, width: &quot;240px&quot; }}&gt;
+    &lt;PdfViewerOutlineSidebar
+        outlineItems={SAMPLE_OUTLINE}
+        currentPage={6}
+        onItemClick={fn()}
+        sidebarMode=&quot;outline&quot;
+        onSidebarModeChange={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Empty</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Empty = () =&gt; &lt;div style={{ height: &quot;400px&quot;, width: &quot;240px&quot; }}&gt;
+    &lt;PdfViewerOutlineSidebar
+        outlineItems={[]}
+        currentPage={1}
+        onItemClick={fn()}
+        sidebarMode=&quot;outline&quot;
+        onSidebarModeChange={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerSearchBar">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerSearchBar</h2>
+      <div class="badges">
+        <label for="c-7-components-pdfviewer-building-blocks-searchbar-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-7-components-pdfviewer-building-blocks-searchbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-7-components-pdfviewer-building-blocks-searchbar-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/SearchBar.stories.tsx">components-pdfviewer-building-blocks-searchbar · ./src/stories/PdfViewer/SearchBar.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-7-components-pdfviewer-building-blocks-searchbar-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-7-components-pdfviewer-building-blocks-searchbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-7-components-pdfviewer-building-blocks-searchbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerSearchBar&quot; component.
+  20 | import { fn } from &quot;storybook/test&quot;;
+  21 |
+&gt; 22 | const meta: Meta&lt;PdfViewerSearchBarProps&gt; = {
+     | ^
+  23 |   title: &quot;Components/PdfViewer/Building Blocks/SearchBar&quot;,
+  24 |   component: PdfViewerSearchBar,
+  25 |   args: {
+
+./src/stories/PdfViewer/SearchBar.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type { PdfViewerSearchBarProps } from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerSearchBar } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const meta: Meta&lt;PdfViewerSearchBarProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/SearchBar&quot;,
+  component: PdfViewerSearchBar,
+  args: {
+    query: &quot;&quot;,
+    totalMatches: 0,
+    currentMatchIndex: 0,
+    onQueryChange: fn(),
+    onNext: fn(),
+    onPrev: fn(),
+    onClose: fn(),
+  },
+  argTypes: {
+    query: {
+      description: &quot;Current search query text&quot;,
+      control: &quot;text&quot;,
+    },
+    totalMatches: {
+      description: &quot;Total number of matches found&quot;,
+      control: { type: &quot;number&quot;, min: 0 },
+    },
+    currentMatchIndex: {
+      description: &quot;Index of the currently highlighted match (0-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 0 },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const WithMatches: Story = {
+  args: {
+    query: &quot;trace&quot;,
+    totalMatches: 12,
+    currentMatchIndex: 3,
+  },
+};
+
+export const NoResults: Story = {
+  args: {
+    // cspell:disable-next-line
+    query: &quot;xyznonexistent&quot;,
+    totalMatches: 0,
+    currentMatchIndex: 0,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerSearchBar } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;PdfViewerSearchBar
+    query=&quot;&quot;
+    totalMatches={0}
+    currentMatchIndex={0}
+    onQueryChange={fn()}
+    onNext={fn()}
+    onPrev={fn()}
+    onClose={fn()} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Matches</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithMatches = () =&gt; &lt;PdfViewerSearchBar
+    query=&quot;trace&quot;
+    totalMatches={12}
+    currentMatchIndex={3}
+    onQueryChange={fn()}
+    onNext={fn()}
+    onPrev={fn()}
+    onClose={fn()} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">No Results</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const NoResults = () =&gt; &lt;PdfViewerSearchBar
+    query=&quot;xyznonexistent&quot;
+    totalMatches={0}
+    currentMatchIndex={0}
+    onQueryChange={fn()}
+    onNext={fn()}
+    onPrev={fn()}
+    onClose={fn()} /&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerToolbar">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerToolbar</h2>
+      <div class="badges">
+        <label for="c-8-components-pdfviewer-building-blocks-toolbar-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-8-components-pdfviewer-building-blocks-toolbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-8-components-pdfviewer-building-blocks-toolbar-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/Toolbar.stories.tsx">components-pdfviewer-building-blocks-toolbar · ./src/stories/PdfViewer/Toolbar.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-8-components-pdfviewer-building-blocks-toolbar-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-8-components-pdfviewer-building-blocks-toolbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-8-components-pdfviewer-building-blocks-toolbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerToolbar&quot; component.
+  20 | import { fn } from &quot;storybook/test&quot;;
+  21 |
+&gt; 22 | const meta: Meta&lt;PdfViewerToolbarProps&gt; = {
+     | ^
+  23 |   title: &quot;Components/PdfViewer/Building Blocks/Toolbar&quot;,
+  24 |   component: PdfViewerToolbar,
+  25 |   args: {
+
+./src/stories/PdfViewer/Toolbar.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type { PdfViewerToolbarProps } from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerToolbar } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const meta: Meta&lt;PdfViewerToolbarProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/Toolbar&quot;,
+  component: PdfViewerToolbar,
+  args: {
+    currentPage: 1,
+    numPages: 14,
+    scale: 1.0,
+    sidebarOpen: false,
+    enableDownload: false,
+    onPageChange: fn(),
+    onScaleChange: fn(),
+    onSearchOpen: fn(),
+    onSidebarToggle: fn(),
+    onDownload: fn(),
+    onRotateLeft: fn(),
+    onRotateRight: fn(),
+  },
+  argTypes: {
+    currentPage: {
+      description: &quot;Current page number (1-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    numPages: {
+      description: &quot;Total number of pages in the document&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    scale: {
+      description: &quot;Current zoom scale&quot;,
+      control: { type: &quot;number&quot;, min: 0.25, max: 5, step: 0.25 },
+    },
+    sidebarOpen: {
+      description: &quot;Whether the sidebar toggle is in the open state&quot;,
+      control: &quot;boolean&quot;,
+    },
+    enableDownload: {
+      description: &quot;Whether the download button is visible&quot;,
+      control: &quot;boolean&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const WithDownload: Story = {
+  args: {
+    enableDownload: true,
+  },
+};
+
+export const MidDocument: Story = {
+  args: {
+    currentPage: 7,
+    numPages: 14,
+    scale: 1.5,
+    sidebarOpen: true,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerToolbar } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;PdfViewerToolbar
+    currentPage={1}
+    numPages={14}
+    scale={1.0}
+    sidebarOpen={false}
+    enableDownload={false}
+    onPageChange={fn()}
+    onScaleChange={fn()}
+    onSearchOpen={fn()}
+    onSidebarToggle={fn()}
+    onDownload={fn()}
+    onRotateLeft={fn()}
+    onRotateRight={fn()} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Download</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithDownload = () =&gt; &lt;PdfViewerToolbar
+    currentPage={1}
+    numPages={14}
+    scale={1.0}
+    sidebarOpen={false}
+    enableDownload
+    onPageChange={fn()}
+    onScaleChange={fn()}
+    onSearchOpen={fn()}
+    onSidebarToggle={fn()}
+    onDownload={fn()}
+    onRotateLeft={fn()}
+    onRotateRight={fn()} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Mid Document</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const MidDocument = () =&gt; &lt;PdfViewerToolbar
+    currentPage={7}
+    numPages={14}
+    scale={1.5}
+    sidebarOpen
+    enableDownload={false}
+    onPageChange={fn()}
+    onScaleChange={fn()}
+    onSearchOpen={fn()}
+    onSidebarToggle={fn()}
+    onDownload={fn()}
+    onRotateLeft={fn()}
+    onRotateRight={fn()} /&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  has-story-error"
+  role="listitem"
+  aria-label="ThumbnailSidebarWrapper">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> ThumbnailSidebarWrapper</h2>
+      <div class="badges">
+        <label for="c-9-components-pdfviewer-building-blocks-thumbnailsidebar-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-9-components-pdfviewer-building-blocks-thumbnailsidebar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-9-components-pdfviewer-building-blocks-thumbnailsidebar-stories" class="badge err as-toggle">2/2 story errors</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/ThumbnailSidebar.stories.tsx">components-pdfviewer-building-blocks-thumbnailsidebar · ./src/stories/PdfViewer/ThumbnailSidebar.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-9-components-pdfviewer-building-blocks-thumbnailsidebar-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-9-components-pdfviewer-building-blocks-thumbnailsidebar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-9-components-pdfviewer-building-blocks-thumbnailsidebar-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;ThumbnailSidebarWrapper&quot; component.
+  62 | }
+  63 |
+&gt; 64 | const meta: Meta&lt;ThumbnailSidebarStoryProps&gt; = {
+     | ^
+  65 |   title: &quot;Components/PdfViewer/Building Blocks/ThumbnailSidebar&quot;,
+  66 |   component: ThumbnailSidebarWrapper,
+  67 |   args: {
+
+./src/stories/PdfViewer/ThumbnailSidebar.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  PdfViewerSidebar,
+  usePdfDocument,
+} from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const SAMPLE_PDF_URL =
+  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+
+interface ThumbnailSidebarStoryProps {
+  src: string;
+  currentPage: number;
+  onPageClick: (page: number) =&gt; void;
+}
+
+function ThumbnailSidebarWrapper({
+  src,
+  currentPage,
+  onPageClick,
+}: ThumbnailSidebarStoryProps) {
+  const { document, numPages, loading, error } = usePdfDocument(src);
+
+  if (loading) {
+    return &lt;div&gt;Loading PDF…&lt;/div&gt;;
+  }
+  if (error != null) {
+    return &lt;div&gt;Error loading PDF: {error.message}&lt;/div&gt;;
+  }
+  if (document == null) {
+    return null;
+  }
+
+  return (
+    &lt;div style={{ height: &quot;500px&quot;, width: &quot;200px&quot; }}&gt;
+      &lt;PdfViewerSidebar
+        document={document}
+        numPages={numPages}
+        currentPage={currentPage}
+        onPageClick={onPageClick}
+        sidebarMode=&quot;thumbnails&quot;
+        onSidebarModeChange={() =&gt; {}}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const meta: Meta&lt;ThumbnailSidebarStoryProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/ThumbnailSidebar&quot;,
+  component: ThumbnailSidebarWrapper,
+  args: {
+    src: SAMPLE_PDF_URL,
+    currentPage: 1,
+    onPageClick: fn(),
+  },
+  argTypes: {
+    currentPage: {
+      description: &quot;Currently active page number (1-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    src: {
+      description: &quot;PDF source URL (used to load the document)&quot;,
+      control: &quot;text&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const ActivePage: Story = {
+  args: {
+    currentPage: 5,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+            <div class="note err">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge err">story error</span>
+              </div>
+              
+              
+              
+              <pre><code>Could not generate snippet without component name.</code></pre>
+            </div>
+            <div class="note err">
+              <div class="row">
+                <span class="ex-name">Active Page</span>
+                <span class="badge err">story error</span>
+              </div>
+              
+              
+              
+              <pre><code>Could not generate snippet without component name.</code></pre>
+            </div>
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerSidebar } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
         </div>
   </div>
 </article>
@@ -4917,388 +6432,9 @@ return (
           <label for="no-component-import-found-toggle" class="group-header">
             <span class="caret">▸</span>
             <span class="group-title">No component import found</span>
-            <span class="group-count">4</span>
+            <span class="group-count">10</span>
           </label>
           <div class="group-cards">
-<article
-  class="card 
-  has-error 
-  has-info 
-  no-story-error"
-  role="listitem"
-  aria-label="BasePdfViewer">
-  <div class="head">
-    <div class="title">
-      <h2><span class="status-dot dot-err"></span> BasePdfViewer</h2>
-      <div class="badges">
-        <label for="c-error-0-components-pdfviewer-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-0-components-pdfviewer-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-0-components-pdfviewer-stories" class="badge ok as-toggle">6 stories</label>
-      </div>
-    </div>
-    <div class="meta" title="./src/stories/PdfViewer/PdfViewer.stories.tsx">components-pdfviewer · ./src/stories/PdfViewer/PdfViewer.stories.tsx</div>
-    
-    
-    
-  </div>
-
-  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-0-components-pdfviewer-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-0-components-pdfviewer-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-0-components-pdfviewer-stories" class="tg tg-stories" type="checkbox" hidden />
-  
-
-  <div class="panels">
-    
-        <div class="panel panel-err">
-          
-    <div class="note err">
-      <div class="note-title">Prop type error</div>
-      <div class="note-body"><pre><code>No component file found for the &quot;BasePdfViewer&quot; component.
-  23 |   &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
-  24 |
-&gt; 25 | const meta: Meta&lt;PdfViewerProps&gt; = {
-     | ^
-  26 |   title: &quot;Components/PdfViewer&quot;,
-  27 |   component: BasePdfViewer,
-  28 |   args: {
-
-./src/stories/PdfViewer/PdfViewer.stories.tsx:
-/*
- * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-import type { PdfViewerProps } from &quot;@osdk/react-components/experimental&quot;;
-import { BasePdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
-import { delay, http } from &quot;msw&quot;;
-import { fn } from &quot;storybook/test&quot;;
-const SAMPLE_PDF_URL =
-  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
-
-const meta: Meta&lt;PdfViewerProps&gt; = {
-  title: &quot;Components/PdfViewer&quot;,
-  component: BasePdfViewer,
-  args: {
-    src: SAMPLE_PDF_URL,
-  },
-  render: (args: PdfViewerProps) =&gt; (
-    &lt;div style={{ height: &quot;600px&quot; }}&gt;
-      &lt;BasePdfViewer {...args} /&gt;
-    &lt;/div&gt;
-  ),
-  parameters: {
-    controls: {
-      expanded: true,
-    },
-  },
-  argTypes: {
-    src: {
-      description: &quot;PDF source — URL string or ArrayBuffer&quot;,
-      control: &quot;text&quot;,
-    },
-    annotations: {
-      description:
-        &quot;Annotations to overlay on the PDF, keyed by page number (1-indexed)&quot;,
-      control: &quot;object&quot;,
-    },
-    onAnnotationClick: {
-      description: &quot;Callback fired when an annotation is clicked&quot;,
-      control: false,
-      table: { category: &quot;Events&quot; },
-    },
-    initialPage: {
-      description: &quot;Page to display on first render (1-indexed)&quot;,
-      control: &quot;number&quot;,
-      table: { defaultValue: { summary: &quot;1&quot; } },
-    },
-    initialScale: {
-      description: &quot;Initial zoom scale&quot;,
-      control: &quot;number&quot;,
-      table: { defaultValue: { summary: &quot;1.0&quot; } },
-    },
-    initialSidebarOpen: {
-      description: &quot;Whether the thumbnail sidebar is initially open&quot;,
-      control: &quot;boolean&quot;,
-      table: { defaultValue: { summary: &quot;false&quot; } },
-    },
-    className: {
-      description: &quot;Additional CSS class name for the root element&quot;,
-      control: &quot;text&quot;,
-    },
-  },
-};
-
-export default meta;
-type Story = StoryObj&lt;typeof meta&gt;;
-
-export const Default: Story = {
-  parameters: {
-    docs: {
-      source: {
-        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-
-&lt;PdfViewer src=&quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot; /&gt;`,
-      },
-    },
-  },
-};
-
-export const WithAnnotations: Story = {
-  args: {
-    onAnnotationClick: fn(),
-    annotations: {
-      1: [
-        {
-          id: &quot;h1&quot;,
-          type: &quot;highlight&quot;,
-          page: 1,
-          rect: { x: 100, y: 700, width: 200, height: 20 },
-          label: &quot;Important text&quot;,
-        },
-        {
-          id: &quot;u1&quot;,
-          type: &quot;underline&quot;,
-          page: 1,
-          rect: { x: 100, y: 650, width: 150, height: 2 },
-        },
-        {
-          id: &quot;c1&quot;,
-          type: &quot;comment&quot;,
-          page: 1,
-          rect: { x: 400, y: 600, width: 24, height: 24 },
-          label: &quot;Review this section&quot;,
-        },
-        {
-          id: &quot;p1&quot;,
-          type: &quot;pin&quot;,
-          page: 1,
-          rect: { x: 300, y: 500, width: 16, height: 16 },
-          label: &quot;Pin marker&quot;,
-        },
-      ],
-    },
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-
-&lt;PdfViewer
-  src=&quot;...&quot;
-  annotations={{
-    1: [
-      { id: &quot;h1&quot;, type: &quot;highlight&quot;, page: 1, rect: { x: 100, y: 700, width: 200, height: 20 }, label: &quot;Important text&quot; },
-      { id: &quot;u1&quot;, type: &quot;underline&quot;, page: 1, rect: { x: 100, y: 650, width: 150, height: 2 } },
-      { id: &quot;c1&quot;, type: &quot;comment&quot;, page: 1, rect: { x: 400, y: 600, width: 24, height: 24 }, label: &quot;Review this&quot; },
-      { id: &quot;p1&quot;, type: &quot;pin&quot;, page: 1, rect: { x: 300, y: 500, width: 16, height: 16 }, label: &quot;Pin&quot; },
-    ],
-  }}
-  onAnnotationClick={(annotation) =&gt; handleAnnotationClick(annotation)}
-/&gt;`,
-      },
-    },
-  },
-};
-
-export const WithSidebar: Story = {
-  args: {
-    initialSidebarOpen: true,
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-
-&lt;PdfViewer src=&quot;...&quot; initialSidebarOpen /&gt;`,
-      },
-    },
-  },
-};
-
-export const CustomScale: Story = {
-  args: {
-    initialScale: 1.5,
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
-
-&lt;PdfViewer src=&quot;...&quot; initialScale={1.5} /&gt;`,
-      },
-    },
-  },
-};
-
-export const Loading: Story = {
-  args: {
-    src: &quot;/loading.pdf&quot;,
-  },
-  parameters: {
-    msw: {
-      handlers: [
-        http.get(&quot;/loading.pdf&quot;, async () =&gt; {
-          await delay(&quot;infinite&quot;);
-        }),
-      ],
-    },
-  },
-};
-
-export const Error: Story = {
-  args: {
-    src: &quot;/error.pdf&quot;,
-  },
-  parameters: {
-    msw: {
-      handlers: [
-        http.get(&quot;/error.pdf&quot;, () =&gt; {
-          return new Response(&quot;Server Error&quot;, { status: 500 });
-        }),
-      ],
-    },
-  },
-};
-</code></pre></div>
-    </div>
-        </div>
-    
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
-    
-    
-        <div class="panel panel-stories">
-          
-          
-          
-          <div class="note ok">
-                <div class="row">
-                  <span class="ex-name">Imports</span>
-                </div>
-                <pre><code>import { BasePdfViewer } from "@osdk/react-components-storybook";</code></pre>
-              </div>
-          
-          
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Default</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Default = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src={SAMPLE_PDF_URL} /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">With Annotations</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const WithAnnotations = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer
-        src={SAMPLE_PDF_URL}
-        onAnnotationClick={fn()}
-        annotations={{
-          1: [
-            {
-              id: &quot;h1&quot;,
-              type: &quot;highlight&quot;,
-              page: 1,
-              rect: { x: 100, y: 700, width: 200, height: 20 },
-              label: &quot;Important text&quot;,
-            },
-            {
-              id: &quot;u1&quot;,
-              type: &quot;underline&quot;,
-              page: 1,
-              rect: { x: 100, y: 650, width: 150, height: 2 },
-            },
-            {
-              id: &quot;c1&quot;,
-              type: &quot;comment&quot;,
-              page: 1,
-              rect: { x: 400, y: 600, width: 24, height: 24 },
-              label: &quot;Review this section&quot;,
-            },
-            {
-              id: &quot;p1&quot;,
-              type: &quot;pin&quot;,
-              page: 1,
-              rect: { x: 300, y: 500, width: 16, height: 16 },
-              label: &quot;Pin marker&quot;,
-            },
-          ],
-        }} /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">With Sidebar</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const WithSidebar = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src={SAMPLE_PDF_URL} initialSidebarOpen /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Custom Scale</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const CustomScale = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src={SAMPLE_PDF_URL} initialScale={1.5} /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Loading</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Loading = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src=&quot;/loading.pdf&quot; /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Error</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Error = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
-    &lt;BasePdfViewer src=&quot;/error.pdf&quot; /&gt;
-&lt;/div&gt;;</code></pre>
-            </div>
-        </div>
-  </div>
-</article>
 <article
   class="card 
   has-error 
@@ -5310,9 +6446,9 @@ export const Error: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> BaseTable</h2>
       <div class="badges">
-        <label for="c-error-1-components-basetable-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-1-components-basetable-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-1-components-basetable-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-error-0-components-basetable-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-0-components-basetable-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-0-components-basetable-stories" class="badge ok as-toggle">8 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/BaseTable/BaseTable.stories.tsx">components-basetable · ./src/stories/BaseTable/BaseTable.stories.tsx</div>
@@ -5322,9 +6458,9 @@ export const Error: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-1-components-basetable-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-1-components-basetable-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-1-components-basetable-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-0-components-basetable-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-0-components-basetable-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-0-components-basetable-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -6219,9 +7355,9 @@ export const ErrorState: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> FilterList</h2>
       <div class="badges">
-        <label for="c-error-2-components-filterlist-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-2-components-filterlist-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-2-components-filterlist-stories" class="badge ok as-toggle">13 stories</label>
+        <label for="c-error-1-components-filterlist-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-1-components-filterlist-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-1-components-filterlist-stories" class="badge ok as-toggle">13 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/FilterList/FilterList.stories.tsx">components-filterlist · ./src/stories/FilterList/FilterList.stories.tsx</div>
@@ -6231,9 +7367,9 @@ export const ErrorState: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-2-components-filterlist-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-2-components-filterlist-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-2-components-filterlist-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-1-components-filterlist-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-1-components-filterlist-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-1-components-filterlist-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -7297,9 +8433,9 @@ export const CombinedWithObjectTable: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> ObjectTable</h2>
       <div class="badges">
-        <label for="c-error-3-components-objecttable-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-3-components-objecttable-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-3-components-objecttable-stories" class="badge ok as-toggle">20 stories</label>
+        <label for="c-error-2-components-objecttable-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-2-components-objecttable-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-2-components-objecttable-stories" class="badge ok as-toggle">20 stories</label>
       </div>
     </div>
     <div class="meta" title="./src/stories/ObjectTable/ObjectTable.stories.tsx">components-objecttable · ./src/stories/ObjectTable/ObjectTable.stories.tsx</div>
@@ -7309,9 +8445,9 @@ export const CombinedWithObjectTable: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-3-components-objecttable-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-3-components-objecttable-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-3-components-objecttable-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-2-components-objecttable-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-2-components-objecttable-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-2-components-objecttable-stories" class="tg tg-stories" type="checkbox" hidden />
   
 
   <div class="panels">
@@ -9311,6 +10447,1900 @@ return (
         objectType={Employee} /&gt;
 &lt;/div&gt;;</code></pre>
             </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewer">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewer</h2>
+      <div class="badges">
+        <label for="c-error-3-components-pdfviewer-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-3-components-pdfviewer-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-3-components-pdfviewer-stories" class="badge ok as-toggle">10 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/PdfViewer.stories.tsx">components-pdfviewer · ./src/stories/PdfViewer/PdfViewer.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-3-components-pdfviewer-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-3-components-pdfviewer-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-3-components-pdfviewer-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewer&quot; component.
+  68 | );
+  69 |
+&gt; 70 | const meta: Meta&lt;PdfViewerMediaProps&gt; = {
+     | ^
+  71 |   title: &quot;Components/PdfViewer&quot;,
+  72 |   component: PdfViewer,
+  73 |   args: {
+
+./src/stories/PdfViewer/PdfViewer.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* cspell:disable */
+
+import type { Media } from &quot;@osdk/api&quot;;
+import type {
+  PdfViewerMediaProps,
+  PdfViewerProps,
+} from &quot;@osdk/react-components/experimental&quot;;
+import { BasePdfViewer, PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+import { useOsdkObject } from &quot;@osdk/react/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { delay, http } from &quot;msw&quot;;
+import { fn } from &quot;storybook/test&quot;;
+import { MEDIA_EMPLOYEE_PK } from &quot;../../mocks/fauxFoundry.js&quot;;
+import { Employee } from &quot;../../types/Employee.js&quot;;
+
+const SAMPLE_PDF_URL =
+  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+
+const BOOKMARKED_PDF_URL =
+  &quot;https://raw.githubusercontent.com/mozilla/pdf.js/master/test/pdfs/nested_outline.pdf&quot;;
+
+function createMockMedia(url: string, filename: string): Media {
+  return {
+    fetchContents: () =&gt; fetch(url),
+    fetchMetadata: () =&gt;
+      Promise.resolve({
+        path: filename,
+        sizeBytes: 1024000,
+        mediaType: &quot;application/pdf&quot;,
+      }),
+    getMediaReference: () =&gt; ({
+      mimeType: &quot;application/pdf&quot;,
+      reference: {
+        type: &quot;mediaSetViewItem&quot; as const,
+        mediaSetViewItem: {
+          mediaItemRid: &quot;ri.mio.main.media-item.mock-pdf&quot;,
+          mediaSetRid: &quot;ri.mio.main.media-set.mock-set&quot;,
+          mediaSetViewRid: &quot;ri.mio.main.media-set-view.mock-view&quot;,
+        },
+      },
+    }),
+  };
+}
+
+const mockMedia = createMockMedia(
+  SAMPLE_PDF_URL,
+  &quot;compressed.tracemonkey-pldi-09.pdf&quot;,
+);
+const mockBookmarkedMedia = createMockMedia(
+  BOOKMARKED_PDF_URL,
+  &quot;pdf-example-bookmarks.pdf&quot;,
+);
+
+const meta: Meta&lt;PdfViewerMediaProps&gt; = {
+  title: &quot;Components/PdfViewer&quot;,
+  component: PdfViewer,
+  args: {
+    media: mockMedia,
+  },
+  render: (args: PdfViewerMediaProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;PdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    controls: {
+      expanded: true,
+    },
+  },
+  argTypes: {
+    media: {
+      description: &quot;The Media object to fetch PDF contents from&quot;,
+      control: false,
+    },
+    annotations: {
+      description:
+        &quot;Annotations to overlay on the PDF, keyed by page number (1-indexed)&quot;,
+      control: &quot;object&quot;,
+    },
+    onAnnotationClick: {
+      description: &quot;Callback fired when an annotation is clicked&quot;,
+      control: false,
+      table: { category: &quot;Events&quot; },
+    },
+    initialPage: {
+      description: &quot;Page to display on first render (1-indexed)&quot;,
+      control: &quot;number&quot;,
+      table: { defaultValue: { summary: &quot;1&quot; } },
+    },
+    initialScale: {
+      description: &quot;Initial zoom scale&quot;,
+      control: &quot;number&quot;,
+      table: { defaultValue: { summary: &quot;1.0&quot; } },
+    },
+    initialSidebarOpen: {
+      description: &quot;Whether the thumbnail sidebar is initially open&quot;,
+      control: &quot;boolean&quot;,
+      table: { defaultValue: { summary: &quot;false&quot; } },
+    },
+    enableDownload: {
+      description: &quot;Whether the download button is shown in the toolbar&quot;,
+      control: &quot;boolean&quot;,
+      table: { defaultValue: { summary: &quot;false&quot; } },
+    },
+    sidebarMode: {
+      description: &quot;Which sidebar panel to show when the sidebar is open&quot;,
+      control: &quot;radio&quot;,
+      options: [&quot;thumbnails&quot;, &quot;outline&quot;],
+      table: { defaultValue: { summary: &quot;\&quot;thumbnails\&quot;&quot; } },
+    },
+    outlineIcons: {
+      description:
+        &quot;Custom icon components for each outline depth level (0-indexed)&quot;,
+      control: false,
+    },
+    className: {
+      description: &quot;Additional CSS class name for the root element&quot;,
+      control: &quot;text&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const WithOsdkMedia: Story = {
+  render: () =&gt; {
+    const { object: employee, isLoading } = useOsdkObject(
+      Employee,
+      MEDIA_EMPLOYEE_PK,
+    );
+
+    if (isLoading || !employee?.employeeDocuments) {
+      return &lt;div style={{ height: &quot;600px&quot; }}&gt;Loading OSDK media…&lt;/div&gt;;
+    }
+
+    return (
+      &lt;div style={{ height: &quot;600px&quot; }}&gt;
+        &lt;PdfViewer media={employee.employeeDocuments} /&gt;
+      &lt;/div&gt;
+    );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+// Access media from an OSDK object&#39;s media reference property
+const employee = useOsdkObject(Employee, employeePk);
+&lt;PdfViewer media={employee.employeeDocuments} /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithPdfUrl: StoryObj&lt;PdfViewerProps&gt; = {
+  args: {
+    src: SAMPLE_PDF_URL,
+  },
+  render: (args: PdfViewerProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;BasePdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code:
+          `import { BasePdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;BasePdfViewer src=&quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot; /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithAnnotations: Story = {
+  args: {
+    onAnnotationClick: fn(),
+    annotations: {
+      1: [
+        {
+          id: &quot;h1&quot;,
+          type: &quot;highlight&quot;,
+          page: 1,
+          rect: { x: 100, y: 700, width: 200, height: 20 },
+          label: &quot;Important text&quot;,
+        },
+        {
+          id: &quot;u1&quot;,
+          type: &quot;underline&quot;,
+          page: 1,
+          rect: { x: 100, y: 650, width: 150, height: 2 },
+        },
+        {
+          id: &quot;c1&quot;,
+          type: &quot;comment&quot;,
+          page: 1,
+          rect: { x: 400, y: 600, width: 24, height: 24 },
+          label: &quot;Review this section&quot;,
+        },
+        {
+          id: &quot;p1&quot;,
+          type: &quot;pin&quot;,
+          page: 1,
+          rect: { x: 300, y: 500, width: 16, height: 16 },
+          label: &quot;Pin marker&quot;,
+        },
+      ],
+    },
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer
+  media={myMediaObject}
+  annotations={{
+    1: [
+      { id: &quot;h1&quot;, type: &quot;highlight&quot;, page: 1, rect: { x: 100, y: 700, width: 200, height: 20 }, label: &quot;Important text&quot; },
+      { id: &quot;u1&quot;, type: &quot;underline&quot;, page: 1, rect: { x: 100, y: 650, width: 150, height: 2 } },
+      { id: &quot;c1&quot;, type: &quot;comment&quot;, page: 1, rect: { x: 400, y: 600, width: 24, height: 24 }, label: &quot;Review this&quot; },
+      { id: &quot;p1&quot;, type: &quot;pin&quot;, page: 1, rect: { x: 300, y: 500, width: 16, height: 16 }, label: &quot;Pin&quot; },
+    ],
+  }}
+  onAnnotationClick={(annotation) =&gt; handleAnnotationClick(annotation)}
+/&gt;`,
+      },
+    },
+  },
+};
+
+export const WithSidebar: Story = {
+  args: {
+    initialSidebarOpen: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer media={myMediaObject} initialSidebarOpen /&gt;`,
+      },
+    },
+  },
+};
+
+export const CustomScale: Story = {
+  args: {
+    initialScale: 1.5,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer media={myMediaObject} initialScale={1.5} /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithDownload: Story = {
+  args: {
+    enableDownload: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer media={myMediaObject} enableDownload /&gt;`,
+      },
+    },
+  },
+};
+
+export const WithOutlineSidebar: Story = {
+  args: {
+    initialSidebarOpen: true,
+    sidebarMode: &quot;outline&quot;,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { PdfViewer } from &quot;@osdk/react-components/experimental&quot;;
+
+&lt;PdfViewer media={myMediaObject} initialSidebarOpen sidebarMode=&quot;outline&quot; /&gt;`,
+      },
+    },
+  },
+};
+
+export const Loading: StoryObj&lt;PdfViewerProps&gt; = {
+  args: {
+    src: &quot;/loading.pdf&quot;,
+  },
+  render: (args: PdfViewerProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;BasePdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(&quot;/loading.pdf&quot;, async () =&gt; {
+          await delay(&quot;infinite&quot;);
+        }),
+      ],
+    },
+  },
+};
+
+export const Error: StoryObj&lt;PdfViewerProps&gt; = {
+  args: {
+    src: &quot;/error.pdf&quot;,
+  },
+  render: (args: PdfViewerProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;BasePdfViewer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(&quot;/error.pdf&quot;, () =&gt; {
+          return new Response(&quot;Server Error&quot;, { status: 500 });
+        }),
+      ],
+    },
+  },
+};
+
+export const WithEmbeddedOutline: Story = {
+  args: {
+    media: mockBookmarkedMedia,
+    initialSidebarOpen: true,
+    sidebarMode: &quot;outline&quot;,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { BasePdfViewer, PdfViewer } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Osdk Media</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithOsdkMedia = () =&gt; {
+  const { object: employee, isLoading } = useOsdkObject(
+    Employee,
+    MEDIA_EMPLOYEE_PK,
+  );
+
+  if (isLoading || !employee?.employeeDocuments) {
+    return &lt;div style={{ height: &quot;600px&quot; }}&gt;Loading OSDK media…&lt;/div&gt;;
+  }
+
+  return (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;PdfViewer media={employee.employeeDocuments} /&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Pdf Url</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithPdfUrl = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer media={mockMedia} src={SAMPLE_PDF_URL} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Annotations</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithAnnotations = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer
+        media={mockMedia}
+        onAnnotationClick={fn()}
+        annotations={{
+          1: [
+            {
+              id: &quot;h1&quot;,
+              type: &quot;highlight&quot;,
+              page: 1,
+              rect: { x: 100, y: 700, width: 200, height: 20 },
+              label: &quot;Important text&quot;,
+            },
+            {
+              id: &quot;u1&quot;,
+              type: &quot;underline&quot;,
+              page: 1,
+              rect: { x: 100, y: 650, width: 150, height: 2 },
+            },
+            {
+              id: &quot;c1&quot;,
+              type: &quot;comment&quot;,
+              page: 1,
+              rect: { x: 400, y: 600, width: 24, height: 24 },
+              label: &quot;Review this section&quot;,
+            },
+            {
+              id: &quot;p1&quot;,
+              type: &quot;pin&quot;,
+              page: 1,
+              rect: { x: 300, y: 500, width: 16, height: 16 },
+              label: &quot;Pin marker&quot;,
+            },
+          ],
+        }} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Sidebar</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithSidebar = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockMedia} initialSidebarOpen /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Custom Scale</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CustomScale = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockMedia} initialScale={1.5} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Download</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithDownload = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockMedia} enableDownload /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Outline Sidebar</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithOutlineSidebar = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockMedia} initialSidebarOpen sidebarMode=&quot;outline&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Loading</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Loading = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer media={mockMedia} src=&quot;/loading.pdf&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Error</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Error = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;BasePdfViewer media={mockMedia} src=&quot;/error.pdf&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Embedded Outline</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithEmbeddedOutline = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewer media={mockBookmarkedMedia} initialSidebarOpen sidebarMode=&quot;outline&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerAnnotationLayer">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerAnnotationLayer</h2>
+      <div class="badges">
+        <label for="c-error-4-components-pdfviewer-building-blocks-annotationlayer-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-4-components-pdfviewer-building-blocks-annotationlayer-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-4-components-pdfviewer-building-blocks-annotationlayer-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/AnnotationLayer.stories.tsx">components-pdfviewer-building-blocks-annotationlayer · ./src/stories/PdfViewer/AnnotationLayer.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-4-components-pdfviewer-building-blocks-annotationlayer-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-4-components-pdfviewer-building-blocks-annotationlayer-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-4-components-pdfviewer-building-blocks-annotationlayer-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerAnnotationLayer&quot; component.
+  53 | ];
+  54 |
+&gt; 55 | const meta: Meta&lt;PdfViewerAnnotationLayerProps&gt; = {
+     | ^
+  56 |   title: &quot;Components/PdfViewer/Building Blocks/AnnotationLayer&quot;,
+  57 |   component: PdfViewerAnnotationLayer,
+  58 |   args: {
+
+./src/stories/PdfViewer/AnnotationLayer.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type {
+  PdfAnnotation,
+  PdfViewerAnnotationLayerProps,
+} from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerAnnotationLayer } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const MIXED_ANNOTATIONS: PdfAnnotation[] = [
+  {
+    id: &quot;h1&quot;,
+    type: &quot;highlight&quot;,
+    page: 1,
+    rect: { x: 50, y: 700, width: 300, height: 20 },
+    label: &quot;Highlighted text&quot;,
+  },
+  {
+    id: &quot;u1&quot;,
+    type: &quot;underline&quot;,
+    page: 1,
+    rect: { x: 50, y: 650, width: 200, height: 2 },
+  },
+  {
+    id: &quot;c1&quot;,
+    type: &quot;comment&quot;,
+    page: 1,
+    rect: { x: 400, y: 600, width: 24, height: 24 },
+    label: &quot;Review this section&quot;,
+  },
+  {
+    id: &quot;p1&quot;,
+    type: &quot;pin&quot;,
+    page: 1,
+    rect: { x: 300, y: 500, width: 16, height: 16 },
+    label: &quot;Pin marker&quot;,
+  },
+];
+
+const meta: Meta&lt;PdfViewerAnnotationLayerProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/AnnotationLayer&quot;,
+  component: PdfViewerAnnotationLayer,
+  args: {
+    annotations: MIXED_ANNOTATIONS,
+    pageHeight: 792,
+    scale: 1.0,
+    onAnnotationClick: fn(),
+  },
+  render: (args: PdfViewerAnnotationLayerProps) =&gt; (
+    &lt;div
+      style={{
+        position: &quot;relative&quot;,
+        width: `${612 * args.scale}px`,
+        height: `${args.pageHeight * args.scale}px`,
+        border: &quot;1px solid #ccc&quot;,
+        background: &quot;#fff&quot;,
+      }}
+    &gt;
+      &lt;PdfViewerAnnotationLayer {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  argTypes: {
+    pageHeight: {
+      description:
+        &quot;Height of the PDF page in PDF units (used for coordinate conversion)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    scale: {
+      description: &quot;Current zoom scale&quot;,
+      control: { type: &quot;number&quot;, min: 0.25, max: 5, step: 0.25 },
+    },
+    annotations: {
+      description: &quot;Array of annotations to render on the page&quot;,
+      control: &quot;object&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const HighlightsOnly: Story = {
+  args: {
+    annotations: [
+      {
+        id: &quot;h1&quot;,
+        type: &quot;highlight&quot;,
+        page: 1,
+        rect: { x: 50, y: 700, width: 300, height: 20 },
+        label: &quot;First highlight&quot;,
+      },
+      {
+        id: &quot;h2&quot;,
+        type: &quot;highlight&quot;,
+        page: 1,
+        rect: { x: 50, y: 650, width: 250, height: 20 },
+        label: &quot;Second highlight&quot;,
+      },
+      {
+        id: &quot;h3&quot;,
+        type: &quot;highlight&quot;,
+        page: 1,
+        rect: { x: 50, y: 600, width: 350, height: 20 },
+        label: &quot;Third highlight&quot;,
+        color: &quot;#4caf50&quot;,
+      },
+    ],
+  },
+};
+
+export const ZoomedIn: Story = {
+  args: {
+    scale: 2.0,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerAnnotationLayer } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;div
+    style={{
+      position: &quot;relative&quot;,
+      width: `${612 * args.scale}px`,
+      height: `${args.pageHeight * args.scale}px`,
+      border: &quot;1px solid #ccc&quot;,
+      background: &quot;#fff&quot;,
+    }}&gt;
+    &lt;PdfViewerAnnotationLayer
+        annotations={MIXED_ANNOTATIONS}
+        pageHeight={792}
+        scale={1.0}
+        onAnnotationClick={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Highlights Only</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const HighlightsOnly = () =&gt; &lt;div
+    style={{
+      position: &quot;relative&quot;,
+      width: `${612 * args.scale}px`,
+      height: `${args.pageHeight * args.scale}px`,
+      border: &quot;1px solid #ccc&quot;,
+      background: &quot;#fff&quot;,
+    }}&gt;
+    &lt;PdfViewerAnnotationLayer
+        annotations={[
+          {
+            id: &quot;h1&quot;,
+            type: &quot;highlight&quot;,
+            page: 1,
+            rect: { x: 50, y: 700, width: 300, height: 20 },
+            label: &quot;First highlight&quot;,
+          },
+          {
+            id: &quot;h2&quot;,
+            type: &quot;highlight&quot;,
+            page: 1,
+            rect: { x: 50, y: 650, width: 250, height: 20 },
+            label: &quot;Second highlight&quot;,
+          },
+          {
+            id: &quot;h3&quot;,
+            type: &quot;highlight&quot;,
+            page: 1,
+            rect: { x: 50, y: 600, width: 350, height: 20 },
+            label: &quot;Third highlight&quot;,
+            color: &quot;#4caf50&quot;,
+          },
+        ]}
+        pageHeight={792}
+        scale={1.0}
+        onAnnotationClick={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Zoomed In</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ZoomedIn = () =&gt; &lt;div
+    style={{
+      position: &quot;relative&quot;,
+      width: `${612 * args.scale}px`,
+      height: `${args.pageHeight * args.scale}px`,
+      border: &quot;1px solid #ccc&quot;,
+      background: &quot;#fff&quot;,
+    }}&gt;
+    &lt;PdfViewerAnnotationLayer
+        annotations={MIXED_ANNOTATIONS}
+        pageHeight={792}
+        scale={2.0}
+        onAnnotationClick={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerContent">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerContent</h2>
+      <div class="badges">
+        <label for="c-error-5-components-pdfviewer-building-blocks-content-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-5-components-pdfviewer-building-blocks-content-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-5-components-pdfviewer-building-blocks-content-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/Content.stories.tsx">components-pdfviewer-building-blocks-content · ./src/stories/PdfViewer/Content.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-5-components-pdfviewer-building-blocks-content-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-5-components-pdfviewer-building-blocks-content-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-5-components-pdfviewer-building-blocks-content-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerContent&quot; component.
+  24 |   &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+  25 |
+&gt; 26 | const meta: Meta&lt;PdfViewerContentProps&gt; = {
+     | ^
+  27 |   title: &quot;Components/PdfViewer/Building Blocks/Content&quot;,
+  28 |   component: PdfViewerContent,
+  29 |   args: {
+
+./src/stories/PdfViewer/Content.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type { PdfViewerContentProps } from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerContent } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+// cspell:disable-next-line
+const SAMPLE_PDF_URL =
+  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+
+const meta: Meta&lt;PdfViewerContentProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/Content&quot;,
+  component: PdfViewerContent,
+  args: {
+    src: SAMPLE_PDF_URL,
+    onPageChange: fn(),
+    onScaleChange: fn(),
+  },
+  render: (args: PdfViewerContentProps) =&gt; (
+    &lt;div style={{ height: &quot;600px&quot; }}&gt;
+      &lt;PdfViewerContent {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  argTypes: {
+    src: {
+      description: &quot;PDF source — URL string or ArrayBuffer&quot;,
+      control: false,
+    },
+    initialPage: {
+      description: &quot;Initial page number (1-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    initialScale: {
+      description: &quot;Initial zoom scale&quot;,
+      control: { type: &quot;number&quot;, min: 0.25, max: 5, step: 0.25 },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const ZoomedIn: Story = {
+  args: {
+    initialScale: 2.0,
+  },
+};
+
+export const StartOnPage5: Story = {
+  args: {
+    initialPage: 5,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerContent } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewerContent src={SAMPLE_PDF_URL} onPageChange={fn()} onScaleChange={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Zoomed In</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ZoomedIn = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewerContent
+        src={SAMPLE_PDF_URL}
+        onPageChange={fn()}
+        onScaleChange={fn()}
+        initialScale={2.0} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Start On Page 5</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const StartOnPage5 = () =&gt; &lt;div style={{ height: &quot;600px&quot; }}&gt;
+    &lt;PdfViewerContent
+        src={SAMPLE_PDF_URL}
+        onPageChange={fn()}
+        onScaleChange={fn()}
+        initialPage={5} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerOutlineSidebar">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerOutlineSidebar</h2>
+      <div class="badges">
+        <label for="c-error-6-components-pdfviewer-building-blocks-outlinesidebar-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-6-components-pdfviewer-building-blocks-outlinesidebar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-6-components-pdfviewer-building-blocks-outlinesidebar-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/OutlineSidebar.stories.tsx">components-pdfviewer-building-blocks-outlinesidebar · ./src/stories/PdfViewer/OutlineSidebar.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-6-components-pdfviewer-building-blocks-outlinesidebar-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-6-components-pdfviewer-building-blocks-outlinesidebar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-6-components-pdfviewer-building-blocks-outlinesidebar-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerOutlineSidebar&quot; component.
+  78 | ];
+  79 |
+&gt; 80 | const meta: Meta&lt;PdfViewerOutlineSidebarProps&gt; = {
+     | ^
+  81 |   title: &quot;Components/PdfViewer/Building Blocks/OutlineSidebar&quot;,
+  82 |   component: PdfViewerOutlineSidebar,
+  83 |   args: {
+
+./src/stories/PdfViewer/OutlineSidebar.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type {
+  OutlineItem,
+  PdfViewerOutlineSidebarProps,
+} from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerOutlineSidebar } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const SAMPLE_OUTLINE: OutlineItem[] = [
+  { title: &quot;Introduction&quot;, depth: 0, pageNumber: 1, bold: true, italic: false },
+  {
+    title: &quot;Background&quot;,
+    depth: 1,
+    pageNumber: 2,
+    bold: false,
+    italic: false,
+  },
+  {
+    title: &quot;Motivation&quot;,
+    depth: 1,
+    pageNumber: 3,
+    bold: false,
+    italic: false,
+  },
+  {
+    title: &quot;Architecture&quot;,
+    depth: 0,
+    pageNumber: 4,
+    bold: true,
+    italic: false,
+  },
+  {
+    title: &quot;System Overview&quot;,
+    depth: 1,
+    pageNumber: 5,
+    bold: false,
+    italic: false,
+  },
+  {
+    title: &quot;Component Design&quot;,
+    depth: 1,
+    pageNumber: 6,
+    bold: false,
+    italic: false,
+  },
+  {
+    title: &quot;Data Flow&quot;,
+    depth: 2,
+    pageNumber: 7,
+    bold: false,
+    italic: true,
+  },
+  {
+    title: &quot;Implementation&quot;,
+    depth: 0,
+    pageNumber: 8,
+    bold: true,
+    italic: false,
+  },
+  { title: &quot;Results&quot;, depth: 0, pageNumber: 10, bold: true, italic: false },
+  { title: &quot;Conclusion&quot;, depth: 0, pageNumber: 12, bold: true, italic: false },
+];
+
+const meta: Meta&lt;PdfViewerOutlineSidebarProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/OutlineSidebar&quot;,
+  component: PdfViewerOutlineSidebar,
+  args: {
+    outlineItems: SAMPLE_OUTLINE,
+    currentPage: 1,
+    onItemClick: fn(),
+    sidebarMode: &quot;outline&quot;,
+    onSidebarModeChange: fn(),
+  },
+  render: (args: PdfViewerOutlineSidebarProps) =&gt; (
+    &lt;div style={{ height: &quot;400px&quot;, width: &quot;240px&quot; }}&gt;
+      &lt;PdfViewerOutlineSidebar {...args} /&gt;
+    &lt;/div&gt;
+  ),
+  argTypes: {
+    currentPage: {
+      description: &quot;Currently active page number (1-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    outlineItems: {
+      description: &quot;Array of outline items to display&quot;,
+      control: &quot;object&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const ActiveSection: Story = {
+  args: {
+    currentPage: 6,
+  },
+};
+
+export const Empty: Story = {
+  args: {
+    outlineItems: [],
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerOutlineSidebar } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;div style={{ height: &quot;400px&quot;, width: &quot;240px&quot; }}&gt;
+    &lt;PdfViewerOutlineSidebar
+        outlineItems={SAMPLE_OUTLINE}
+        currentPage={1}
+        onItemClick={fn()}
+        sidebarMode=&quot;outline&quot;
+        onSidebarModeChange={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Active Section</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ActiveSection = () =&gt; &lt;div style={{ height: &quot;400px&quot;, width: &quot;240px&quot; }}&gt;
+    &lt;PdfViewerOutlineSidebar
+        outlineItems={SAMPLE_OUTLINE}
+        currentPage={6}
+        onItemClick={fn()}
+        sidebarMode=&quot;outline&quot;
+        onSidebarModeChange={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Empty</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Empty = () =&gt; &lt;div style={{ height: &quot;400px&quot;, width: &quot;240px&quot; }}&gt;
+    &lt;PdfViewerOutlineSidebar
+        outlineItems={[]}
+        currentPage={1}
+        onItemClick={fn()}
+        sidebarMode=&quot;outline&quot;
+        onSidebarModeChange={fn()} /&gt;
+&lt;/div&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerSearchBar">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerSearchBar</h2>
+      <div class="badges">
+        <label for="c-error-7-components-pdfviewer-building-blocks-searchbar-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-7-components-pdfviewer-building-blocks-searchbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-7-components-pdfviewer-building-blocks-searchbar-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/SearchBar.stories.tsx">components-pdfviewer-building-blocks-searchbar · ./src/stories/PdfViewer/SearchBar.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-7-components-pdfviewer-building-blocks-searchbar-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-7-components-pdfviewer-building-blocks-searchbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-7-components-pdfviewer-building-blocks-searchbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerSearchBar&quot; component.
+  20 | import { fn } from &quot;storybook/test&quot;;
+  21 |
+&gt; 22 | const meta: Meta&lt;PdfViewerSearchBarProps&gt; = {
+     | ^
+  23 |   title: &quot;Components/PdfViewer/Building Blocks/SearchBar&quot;,
+  24 |   component: PdfViewerSearchBar,
+  25 |   args: {
+
+./src/stories/PdfViewer/SearchBar.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type { PdfViewerSearchBarProps } from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerSearchBar } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const meta: Meta&lt;PdfViewerSearchBarProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/SearchBar&quot;,
+  component: PdfViewerSearchBar,
+  args: {
+    query: &quot;&quot;,
+    totalMatches: 0,
+    currentMatchIndex: 0,
+    onQueryChange: fn(),
+    onNext: fn(),
+    onPrev: fn(),
+    onClose: fn(),
+  },
+  argTypes: {
+    query: {
+      description: &quot;Current search query text&quot;,
+      control: &quot;text&quot;,
+    },
+    totalMatches: {
+      description: &quot;Total number of matches found&quot;,
+      control: { type: &quot;number&quot;, min: 0 },
+    },
+    currentMatchIndex: {
+      description: &quot;Index of the currently highlighted match (0-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 0 },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const WithMatches: Story = {
+  args: {
+    query: &quot;trace&quot;,
+    totalMatches: 12,
+    currentMatchIndex: 3,
+  },
+};
+
+export const NoResults: Story = {
+  args: {
+    // cspell:disable-next-line
+    query: &quot;xyznonexistent&quot;,
+    totalMatches: 0,
+    currentMatchIndex: 0,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerSearchBar } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;PdfViewerSearchBar
+    query=&quot;&quot;
+    totalMatches={0}
+    currentMatchIndex={0}
+    onQueryChange={fn()}
+    onNext={fn()}
+    onPrev={fn()}
+    onClose={fn()} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Matches</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithMatches = () =&gt; &lt;PdfViewerSearchBar
+    query=&quot;trace&quot;
+    totalMatches={12}
+    currentMatchIndex={3}
+    onQueryChange={fn()}
+    onNext={fn()}
+    onPrev={fn()}
+    onClose={fn()} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">No Results</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const NoResults = () =&gt; &lt;PdfViewerSearchBar
+    query=&quot;xyznonexistent&quot;
+    totalMatches={0}
+    currentMatchIndex={0}
+    onQueryChange={fn()}
+    onNext={fn()}
+    onPrev={fn()}
+    onClose={fn()} /&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error"
+  role="listitem"
+  aria-label="PdfViewerToolbar">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PdfViewerToolbar</h2>
+      <div class="badges">
+        <label for="c-error-8-components-pdfviewer-building-blocks-toolbar-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-8-components-pdfviewer-building-blocks-toolbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-8-components-pdfviewer-building-blocks-toolbar-stories" class="badge ok as-toggle">3 stories</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/Toolbar.stories.tsx">components-pdfviewer-building-blocks-toolbar · ./src/stories/PdfViewer/Toolbar.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-8-components-pdfviewer-building-blocks-toolbar-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-8-components-pdfviewer-building-blocks-toolbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-8-components-pdfviewer-building-blocks-toolbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;PdfViewerToolbar&quot; component.
+  20 | import { fn } from &quot;storybook/test&quot;;
+  21 |
+&gt; 22 | const meta: Meta&lt;PdfViewerToolbarProps&gt; = {
+     | ^
+  23 |   title: &quot;Components/PdfViewer/Building Blocks/Toolbar&quot;,
+  24 |   component: PdfViewerToolbar,
+  25 |   args: {
+
+./src/stories/PdfViewer/Toolbar.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import type { PdfViewerToolbarProps } from &quot;@osdk/react-components/experimental&quot;;
+import { PdfViewerToolbar } from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const meta: Meta&lt;PdfViewerToolbarProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/Toolbar&quot;,
+  component: PdfViewerToolbar,
+  args: {
+    currentPage: 1,
+    numPages: 14,
+    scale: 1.0,
+    sidebarOpen: false,
+    enableDownload: false,
+    onPageChange: fn(),
+    onScaleChange: fn(),
+    onSearchOpen: fn(),
+    onSidebarToggle: fn(),
+    onDownload: fn(),
+    onRotateLeft: fn(),
+    onRotateRight: fn(),
+  },
+  argTypes: {
+    currentPage: {
+      description: &quot;Current page number (1-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    numPages: {
+      description: &quot;Total number of pages in the document&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    scale: {
+      description: &quot;Current zoom scale&quot;,
+      control: { type: &quot;number&quot;, min: 0.25, max: 5, step: 0.25 },
+    },
+    sidebarOpen: {
+      description: &quot;Whether the sidebar toggle is in the open state&quot;,
+      control: &quot;boolean&quot;,
+    },
+    enableDownload: {
+      description: &quot;Whether the download button is visible&quot;,
+      control: &quot;boolean&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const WithDownload: Story = {
+  args: {
+    enableDownload: true,
+  },
+};
+
+export const MidDocument: Story = {
+  args: {
+    currentPage: 7,
+    numPages: 14,
+    scale: 1.5,
+    sidebarOpen: true,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerToolbar } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;PdfViewerToolbar
+    currentPage={1}
+    numPages={14}
+    scale={1.0}
+    sidebarOpen={false}
+    enableDownload={false}
+    onPageChange={fn()}
+    onScaleChange={fn()}
+    onSearchOpen={fn()}
+    onSidebarToggle={fn()}
+    onDownload={fn()}
+    onRotateLeft={fn()}
+    onRotateRight={fn()} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Download</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithDownload = () =&gt; &lt;PdfViewerToolbar
+    currentPage={1}
+    numPages={14}
+    scale={1.0}
+    sidebarOpen={false}
+    enableDownload
+    onPageChange={fn()}
+    onScaleChange={fn()}
+    onSearchOpen={fn()}
+    onSidebarToggle={fn()}
+    onDownload={fn()}
+    onRotateLeft={fn()}
+    onRotateRight={fn()} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Mid Document</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const MidDocument = () =&gt; &lt;PdfViewerToolbar
+    currentPage={7}
+    numPages={14}
+    scale={1.5}
+    sidebarOpen
+    enableDownload={false}
+    onPageChange={fn()}
+    onScaleChange={fn()}
+    onSearchOpen={fn()}
+    onSidebarToggle={fn()}
+    onDownload={fn()}
+    onRotateLeft={fn()}
+    onRotateRight={fn()} /&gt;;</code></pre>
+            </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  has-story-error"
+  role="listitem"
+  aria-label="ThumbnailSidebarWrapper">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> ThumbnailSidebarWrapper</h2>
+      <div class="badges">
+        <label for="c-error-9-components-pdfviewer-building-blocks-thumbnailsidebar-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-9-components-pdfviewer-building-blocks-thumbnailsidebar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-9-components-pdfviewer-building-blocks-thumbnailsidebar-stories" class="badge err as-toggle">2/2 story errors</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/PdfViewer/ThumbnailSidebar.stories.tsx">components-pdfviewer-building-blocks-thumbnailsidebar · ./src/stories/PdfViewer/ThumbnailSidebar.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-9-components-pdfviewer-building-blocks-thumbnailsidebar-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-9-components-pdfviewer-building-blocks-thumbnailsidebar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-9-components-pdfviewer-building-blocks-thumbnailsidebar-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;ThumbnailSidebarWrapper&quot; component.
+  62 | }
+  63 |
+&gt; 64 | const meta: Meta&lt;ThumbnailSidebarStoryProps&gt; = {
+     | ^
+  65 |   title: &quot;Components/PdfViewer/Building Blocks/ThumbnailSidebar&quot;,
+  66 |   component: ThumbnailSidebarWrapper,
+  67 |   args: {
+
+./src/stories/PdfViewer/ThumbnailSidebar.stories.tsx:
+/*
+ * Copyright 2025 Palantir Technologies, Inc. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  PdfViewerSidebar,
+  usePdfDocument,
+} from &quot;@osdk/react-components/experimental&quot;;
+import type { Meta, StoryObj } from &quot;@storybook/react-vite&quot;;
+import { fn } from &quot;storybook/test&quot;;
+
+const SAMPLE_PDF_URL =
+  &quot;https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf&quot;;
+
+interface ThumbnailSidebarStoryProps {
+  src: string;
+  currentPage: number;
+  onPageClick: (page: number) =&gt; void;
+}
+
+function ThumbnailSidebarWrapper({
+  src,
+  currentPage,
+  onPageClick,
+}: ThumbnailSidebarStoryProps) {
+  const { document, numPages, loading, error } = usePdfDocument(src);
+
+  if (loading) {
+    return &lt;div&gt;Loading PDF…&lt;/div&gt;;
+  }
+  if (error != null) {
+    return &lt;div&gt;Error loading PDF: {error.message}&lt;/div&gt;;
+  }
+  if (document == null) {
+    return null;
+  }
+
+  return (
+    &lt;div style={{ height: &quot;500px&quot;, width: &quot;200px&quot; }}&gt;
+      &lt;PdfViewerSidebar
+        document={document}
+        numPages={numPages}
+        currentPage={currentPage}
+        onPageClick={onPageClick}
+        sidebarMode=&quot;thumbnails&quot;
+        onSidebarModeChange={() =&gt; {}}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+const meta: Meta&lt;ThumbnailSidebarStoryProps&gt; = {
+  title: &quot;Components/PdfViewer/Building Blocks/ThumbnailSidebar&quot;,
+  component: ThumbnailSidebarWrapper,
+  args: {
+    src: SAMPLE_PDF_URL,
+    currentPage: 1,
+    onPageClick: fn(),
+  },
+  argTypes: {
+    currentPage: {
+      description: &quot;Currently active page number (1-indexed)&quot;,
+      control: { type: &quot;number&quot;, min: 1 },
+    },
+    src: {
+      description: &quot;PDF source URL (used to load the document)&quot;,
+      control: &quot;text&quot;,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Default: Story = {};
+
+export const ActivePage: Story = {
+  args: {
+    currentPage: 5,
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+            <div class="note err">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge err">story error</span>
+              </div>
+              
+              
+              
+              <pre><code>Could not generate snippet without component name.</code></pre>
+            </div>
+            <div class="note err">
+              <div class="row">
+                <span class="ex-name">Active Page</span>
+                <span class="badge err">story error</span>
+              </div>
+              
+              
+              
+              <pre><code>Could not generate snippet without component name.</code></pre>
+            </div>
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { PdfViewerSidebar } from "@osdk/react-components-storybook";</code></pre>
+              </div>
+          
+          
         </div>
   </div>
 </article></div>
